@@ -2,11 +2,22 @@ const express = require('express');
 const app = express();
 const cors = require('cors')
 const mongoose = require('mongoose');
+const bodyparser = require('body-parser');
 const dotenv = require('dotenv')
 dotenv.config();
-//=========== MIDDLEWARE USAGE ======= //
 
+//=========== MIDDLEWARE USAGE ======= //
+app.use(bodyparser.json())
+app.use(bodyparser.urlencoded({extended:true}))
 app.use(cors());
+
+//========== router import ==========  //
+const login = require('./src/routers/auth/LoginRouter')
+
+//========= router middlware usage ===== //
+app.use('/auth',login)
+
+
 
 //=========== DATABASE CONNECTION ===== //
 
@@ -16,9 +27,10 @@ mongoose.connect(process.env.DB_Cloud)
 })).catch(err =>{
     console.log(err)
 })
-app.get('/',(req,res)=>{
-    res.send("ok")
-})
+
+
+
+
 //=========== SERVER CONFIGIRATIONS ====== //
 //http://localhost:5000/
 const port = process.env.PORT || 5080
