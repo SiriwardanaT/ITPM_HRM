@@ -2,9 +2,7 @@
   <div>
     <!-- left side view -->
     <v-row>
-      
       <v-col cols="4" class="cyan" style="height: 100vh">
-       
         <center><h1 id="heading" class="mt-6 white--text">HRM</h1></center>
         <img
           :src="img_log"
@@ -16,7 +14,7 @@
       <!-- right side view -->
       <v-col>
         <div class="error-msg" v-if="true">
-             <ErrorMsg :msg="msg" v-if="isActive"/>
+          <ErrorMsg :msg="msg" v-if="isActive" />
         </div>
         <center><h1 class="mt-15 black--text">LOGIN</h1></center>
         <div style="width: 50%; margin-left: 25%; margin-top: 5%">
@@ -36,7 +34,11 @@
                 outlined
                 dense
               ></v-text-field>
-              <v-btn @click="login" class="teal lighten-2 white--text" style="width: 100%">
+              <v-btn
+                @click="login"
+                class="teal lighten-2 white--text"
+                style="width: 100%"
+              >
                 Login
               </v-btn>
               <p class="mt-3" style="font-size: 16px">
@@ -47,36 +49,46 @@
         </div>
       </v-col>
     </v-row>
-    {{isActive}}
+    <v-overlay :value="overlay" v-if="Isloading">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      ></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
 <script>
 import logo from "../../../public/logo1.png";
-import ErrorMsg from '../../components/Notification/Error.vue'
+import ErrorMsg from "../../components/Notification/Error.vue";
 export default {
   data() {
     return {
       img_log: logo,
-      display:false,
-      msg :"",
-      isActive:false
+      display: false,
+      msg: "",
+      isActive: false,
+      Isloading:false
     };
   },
-  components:{
-    ErrorMsg
+  components: {
+    ErrorMsg,
   },
-  methods:{
-      login(){
-          // this.msg = "Invalid UserName Password"
-          // this.isActive = true;
-           
-          // setTimeout(()=>{
-          //   this.isActive = false
-          // },3000)
+  methods: {
+    login() {
+      // this.msg = "Invalid UserName Password"
+      // this.isActive = true;
+      // setTimeout(()=>{
+      //   this.isActive = false
+      // },3000)
+      this.Isloading = true;
 
-      }
-  }
+      setTimeout(()=>{
+        this.Isloading = false
+        this.$route.push('/')
+      },1000)
+    },
+  },
 };
 </script>
 
