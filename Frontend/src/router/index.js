@@ -6,6 +6,7 @@ import Login from '../views/AuthModule/Login.vue'
 
 //user module
 import EmployeeList from '../views/UserModule/EmployeeList.vue'
+import AddEmployee from '../views/UserModule/AddNewUser.vue'
 Vue.use(VueRouter)
 
 const isAuth = true
@@ -24,7 +25,14 @@ const routes = [
   {
     path:'/member',
     name :"EmployeeList",
-    component:EmployeeList
+    component:EmployeeList,
+    meta: { requiresAuth: true }
+  },
+  {
+    path:'/member/add',
+    name :"AddNewEmployee",
+    component:AddEmployee,
+    meta: { requiresAuth: true }
   }
 ]
 
