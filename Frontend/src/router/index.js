@@ -6,16 +6,18 @@ import Login from '../views/AuthModule/Login.vue'
 
 Vue.use(VueRouter)
 
+const isAuth = true
 const routes = [
   {
     path: '/',
     name: 'dashboard',
-    component: Dashboard
+    component: Dashboard,
+    meta: { requiresAuth: true }
   },
   {
     path:'/auth/login',
     name:"Login",
-    component:Login
+    component:Login,
   }
 ]
 
@@ -24,5 +26,19 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
+//router guard 
+router.beforeEach((to, from , next)=>{
+    console.log(to)
+    if(to.meta.requiresAuth){
+        if(isAuth){
+           next()
+        }
+        else{
+          next('/auth/login')
+        }
+    }
+    else{
+      next()
+    }
+})
 export default router
