@@ -1,10 +1,9 @@
 <template>
   <v-container>
     <div class="top-section">
-      <h1>Employee List</h1>
+      <h2>Employee List</h2>
       <v-row>
         <v-col cols="9">
-          
           <div class="mt-5 search-bar" style="width:50%">
                <v-text-field
              prepend-inner-icon="mdi-account-search"
@@ -14,7 +13,7 @@
           </div>
         </v-col>
         <v-col>
-          <v-btn class="teal lighten-2 white--text"> Add Employee </v-btn>
+          <v-btn @click="navigateToAddemployee()" class="teal lighten-2 white--text"> Add Employee </v-btn>
         </v-col>
       </v-row>
     </div>
@@ -66,7 +65,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data(){
+        return{
+
+        }
+    },
+    methods:{
+        navigateToAddemployee(){
+            this.$router.push('/member/add')
+        }
+    }
+};
 </script>
 
 <style>
