@@ -4,6 +4,8 @@ import Dashboard from '../views/Dashboard/dashboard.vue'
 //authModule 
 import Login from '../views/AuthModule/Login.vue'
 
+//user module
+import EmployeeList from '../views/UserModule/EmployeeList.vue'
 Vue.use(VueRouter)
 
 const isAuth = true
@@ -18,6 +20,11 @@ const routes = [
     path:'/auth/login',
     name:"Login",
     component:Login,
+  },
+  {
+    path:'/member',
+    name :"EmployeeList",
+    component:EmployeeList
   }
 ]
 
