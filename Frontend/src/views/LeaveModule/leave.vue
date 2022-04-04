@@ -8,7 +8,7 @@
                   <img :src="img_leave" alt="" height="500" width="500" style="margin-top:10%;margin-left:8%"> 
              </v-col>
              <v-col>
-               <Form/>
+              <Forms/>
              </v-col>
         </v-row>
     </v-container>
@@ -20,7 +20,7 @@
 
 <script>
 import leaves from '../../assets/leave.png'
-import Form from '../../views/LeaveModule/form.vue'
+import Forms from '../../views/LeaveModule/form.vue'
 export default {
    data(){
        return{
