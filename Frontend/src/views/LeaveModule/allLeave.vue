@@ -120,14 +120,7 @@ import DeleteAlert from '../../components/Notification/DeleteNotification.vue'
         ],
       }
     },
-    methods:{
-       OnDelete(){
-        components:{
-            DeleteAlert
-        }
-  }
-
-    }
+   
    
   }
 </script>
