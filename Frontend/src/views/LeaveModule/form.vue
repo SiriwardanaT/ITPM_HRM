@@ -1,41 +1,37 @@
 <template>
      <div>
-                   <v-container>
-                       <v-form>
-                            <v-text-field
-                               v-model="title"
-                               :rules="rules"
-                                hint="Leave Type"
-                                label="Leave Type"
-                            ></v-text-field>
-                            <v-text-field
-                            
-                              v-model="value1" 
-                              type="number"
-                              :min="1" 
-                              :max="30" 
-                              label="Number of leaves (Annual)"
-                              
-                               append-outer-icon="mdi-info"
-                              inline controls>
-                              <v-icon
-          color="primary"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-          mdi-home
-        </v-icon>
-                              </v-text-field>
-                         
-     
-                               <v-text-field
-                               v-model="value2" 
-                                type="number"
-                                :min="1" 
-                                :max="10" 
-                                label="Number of leaves (Monthly)"
-                               append-outer-icon="mdi-map-marker"
+       <v-container>
+          <v-form>
+           <v-text-field
+              v-model="title"
+              :rules="rules"
+              hint="Leave Type"
+              label="Leave Type"
+            ></v-text-field>
+             <v-text-field
+                v-model="value1" 
+                type="number"
+                :min="1" 
+                :max="30" 
+                label="Number of leaves (Annual)"
+                append-outer-icon="mdi-info"
+                inline controls>
+                 <v-icon
+                   color="primary"
+                   dark
+                   v-bind="attrs" 
+                   v-on="on"
+               >
+                 mdi-home
+                </v-icon>
+            </v-text-field>
+            <v-text-field
+               v-model="value2" 
+                type="number"
+                :min="1" 
+                :max="10" 
+                label="Number of leaves (Monthly)"
+              append-outer-icon="mdi-map-marker"
                               inline controls>
                               </v-text-field>
                             
@@ -94,7 +90,7 @@ export default {
            
               items: ['Interns', 'Permanants', 'All'],
 
-              
+
            value:  ['Interns', 'Permanants', 'All'] ,
           
    
