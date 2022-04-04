@@ -6,6 +6,9 @@ import Login from '../views/AuthModule/Login.vue'
 import Leave from '../views/LeaveModule/leave.vue'
 import AllLeave from '../views/LeaveModule/allLeave.vue';
 
+//user module
+import EmployeeList from '../views/UserModule/EmployeeList.vue'
+import AddEmployee from '../views/UserModule/AddNewUser.vue'
 Vue.use(VueRouter)
 
 const isAuth = true
@@ -27,6 +30,20 @@ const routes = [
     component:Leave,
    
   },
+  {
+    path:'/member',
+    name :"EmployeeList",
+    component:EmployeeList,
+    meta: { requiresAuth: true }
+  },
+   
+ 
+  {
+    path:'/member/add',
+    name :"AddNewEmployee",
+    component:AddEmployee,
+    meta: { requiresAuth: true }
+  }
 ]
 
 const router = new VueRouter({

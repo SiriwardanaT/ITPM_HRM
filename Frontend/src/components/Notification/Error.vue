@@ -27,8 +27,7 @@
 <script>
   export default {
     data: () => ({
-      snackbar: true,
-      text: 'Invalid username or password',
+      snackbar: true
     }),
     props:{
         msg:String,
