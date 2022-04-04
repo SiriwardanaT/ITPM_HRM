@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Dashboard from '../views/Dashboard/dashboard.vue'
 //authModule 
 import Login from '../views/AuthModule/Login.vue'
+import Leave from '../views/LeaveModule/leave.vue'
+import AllLeave from '../views/LeaveModule/allLeave.vue';
 
 Vue.use(VueRouter)
 
@@ -18,7 +20,13 @@ const routes = [
     path:'/auth/login',
     name:"Login",
     component:Login,
-  }
+  },
+  {
+    path: '/leave',
+    name: 'leave',
+    component:Leave,
+   
+  },
 ]
 
 const router = new VueRouter({
