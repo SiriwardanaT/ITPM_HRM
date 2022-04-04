@@ -63,7 +63,7 @@
    </div>
 </template>
 <script>
-import DeleteAlert from '../../components/Notification/DeleteNotification.vue'
+//import DeleteAlert from '../../components/Notification/DeleteNotification.vue'
   export default {
     data () {
       return {
