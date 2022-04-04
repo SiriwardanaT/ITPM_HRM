@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Dashboard from '../views/Dashboard/dashboard.vue'
 //authModule 
 import Login from '../views/AuthModule/Login.vue'
+import Leave from '../views/LeaveModule/leave.vue'
+import AllLeave from '../views/LeaveModule/allLeave.vue';
 
 //user module
 import EmployeeList from '../views/UserModule/EmployeeList.vue'
@@ -23,11 +25,19 @@ const routes = [
     component:Login,
   },
   {
+    path: '/leave',
+    name: 'leave',
+    component:Leave,
+   
+  },
+  {
     path:'/member',
     name :"EmployeeList",
     component:EmployeeList,
     meta: { requiresAuth: true }
   },
+   
+ 
   {
     path:'/member/add',
     name :"AddNewEmployee",
