@@ -31,7 +31,7 @@ export default {
        }
    },
    components:{
-     Form
+     Forms
    }
 }
 </script>
