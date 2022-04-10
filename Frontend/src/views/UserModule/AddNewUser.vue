@@ -119,7 +119,7 @@ export default {
       date_rule : [v=> !! v || "Date is Required"],
       gender_rule : [v=> !! v || "Gender is Required"],
       address_rule : [v=> !! v || "Address is Required"],
-      password_rule : [v=> !! v || "Password is Required" , v => v && v.length < 11 || "Invalid Password" ],
+      password_rule : [v=> !! v || "Password is Required" , v => v && v.length > 11 || "Invalid Password" ],
       jobrole_rule : [v => !! v || "Job role is Required"]
     };
   },
