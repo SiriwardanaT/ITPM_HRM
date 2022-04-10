@@ -19,10 +19,11 @@
         <center><h1 class="mt-15 black--text">LOGIN</h1></center>
         <div style="width: 50%; margin-left: 25%; margin-top: 5%">
           <v-container>
-            <v-form class="login-form">
+            <v-form class="login-form" ref="form">
               <v-text-field
                 label="Employee ID"
                 outlined
+                :rules="username_rule"
                 prepend-inner-icon="mdi-account"
                 dense
               ></v-text-field>
@@ -30,6 +31,7 @@
               <v-text-field
                 label="Password"
                 type="password"
+                :rules="password_rule"
                 prepend-inner-icon="mdi-lock"
                 outlined
                 dense
@@ -64,11 +66,13 @@ import ErrorMsg from "../../components/Notification/Error.vue";
 export default {
   data() {
     return {
+      username_rule : [v=> !! v  || "User Name is Required", v=>v && v.length > 6 || "Invalid User name"],
+      password_rule : [v=> !! v || "Password is Required" , v => v && v.length > 11 || "Invalid Password" ],
       img_log: logo,
       display: false,
       msg: "",
       isActive: false,
-      Isloading:false
+      Isloading:false,
     };
   },
   components: {
@@ -81,12 +85,17 @@ export default {
       // setTimeout(()=>{
       //   this.isActive = false
       // },3000)
-      this.Isloading = true;
-
-      setTimeout(()=>{
-        this.Isloading = false
-        this.$route.push('/')
-      },1000)
+      this.$refs.form.validate();
+      if(this.$refs.form.validate()){
+        this.Isloading = true;
+        setTimeout(()=>{
+          this.Isloading = false
+          this.$route.push('/')
+        },1000)
+      }
+     
+     
+    
     },
   },
 };
