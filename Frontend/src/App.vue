@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="app">
     <v-main>
     <TopBar v-if="this.$route.name != 'Login'"/>
     <router-view/>
@@ -19,3 +19,8 @@ export default {
   }
 };
 </script>
+
+<style>
+
+
+</style>
