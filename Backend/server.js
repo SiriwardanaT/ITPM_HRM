@@ -13,9 +13,11 @@ app.use(cors());
 
 //========== router import ==========  //
 const login = require('./src/routers/auth/LoginRouter')
+const userRouter = require('./src/routers/UserRouter')
 
 //========= router middlware usage ===== //
 app.use('/auth',login)
+app.use('/user',userRouter)
 
 
 
@@ -37,3 +39,6 @@ const port = process.env.PORT || 5080
 app.listen(port,()=>{
     console.log('server run in port '+port);
 });
+
+
+
