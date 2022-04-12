@@ -4,11 +4,16 @@ const User = new mongoose.Schema({
      
     employeeId :{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
     employeeName:{
         type:String,
         required:true
+    },
+    Nic :{
+       type:String,
+       required:true
     },
     phone:{
         type:String,
@@ -16,7 +21,8 @@ const User = new mongoose.Schema({
     },
     email:{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
     birthData:{
         type:Date,
@@ -29,6 +35,10 @@ const User = new mongoose.Schema({
     jobRole:{
         type:String,
         required:true
+    },
+    isAdmin:{
+        type:Number,
+        required:true,
     },
     gender:{
         type:String,
