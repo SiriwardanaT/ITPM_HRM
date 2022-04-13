@@ -111,7 +111,7 @@ export default {
       check:"",
       Isloading: true,
       GenderItems: ["Male", "Female"],
-      JobRole :["Intern", "Manager","Senior Software Engineer","Associate Software Engineer","Consultant"],
+      JobRole :["Intern", "Manager","Senior Software Engineer","Associate Software Engineer","Consultant","Junior Executive"],
       username_rule : [v=> !! v  || "User Name is Required", v=>v && v.length > 6 || "Invalid User name"],
       email_rules : [v=> !!v || "Email is Required" ,v=> /.+@.+\..+/.test(v) || 'E-mail must be valid'],
       phonenum_rules : [v=> !! v || "Phone Number is Required", v => v && v.length < 11 || "Invalid phone number"],
@@ -119,7 +119,7 @@ export default {
       date_rule : [v=> !! v || "Date is Required"],
       gender_rule : [v=> !! v || "Gender is Required"],
       address_rule : [v=> !! v || "Address is Required"],
-      password_rule : [v=> !! v || "Password is Required" , v => v && v.length > 11 || "Invalid Password" ],
+      password_rule : [v=> !! v || "Password is Required" , v => v && v.length < 11 || "Invalid Password" ],
       jobrole_rule : [v => !! v || "Job role is Required"]
     };
   },
