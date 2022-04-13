@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <h2>Add Employee</h2>
+    <h2 v-if="this.$route.path =='/member/update'">Update Employee</h2>
+    <h2 v-if="this.$route.path =='/member/add'">Add Employee</h2>
     <v-row> </v-row>
     <!-- form start -->
     <v-form ref="form">
@@ -134,16 +135,26 @@
       </div>
     </v-form>
     <Loader v-if="Isloading" />
+    <ErrorMsg :msg="Errormsg" v-if="ErrActive" />
+    <SuccessMsg :msg = "Successmsg" v-if="SuccessActive"/>
   </v-container>
 </template>
 
 <script>
 import Loader from "../../components/Notification/Loading.vue";
+import UserAPI from "../../services/userService"
+import ErrorMsg from "../../components/Notification/Error.vue"
+import SuccessMsg from "../../components/Notification/Success.vue"
 export default {
   data() {
     return {
+      title:"",
       check: "",
       Isloading: true,
+      Errormsg:"Already Created User",
+      ErrActive :false,
+      SuccessActive:false,
+      Successmsg :"Employee Created",
       GenderItems: ["Male", "Female"],
       JobRole: [
         "Intern",
@@ -195,17 +206,23 @@ export default {
   },
   components: {
     Loader,
+    ErrorMsg,
+    SuccessMsg
   },
   methods: {
-    login() {
+    async login() {
+      this.SuccessActive = false;
+      this.ErrActive = false
       this.$refs.form.validate();
       if (this.$refs.form.validate()) {
-        alert("success");
-        console.log(this.user)
+          console.log(this.user)
+          const IsCreate = await UserAPI.addEmployee(this.user);
+          IsCreate ? this.SuccessActive = true : this.ErrActive = true
       }
     },
   },
   created() {
+    
     setTimeout(() => {
       this.Isloading = false;
     }, 2000);
