@@ -21,8 +21,8 @@ const User = new mongoose.Schema({
     },
     email:{
         type:String,
-        required:true,
-        unique:true
+        unique: true,
+        required:true
     },
     birthData:{
         type:Date,
@@ -42,7 +42,8 @@ const User = new mongoose.Schema({
     },
     gender:{
         type:String,
-        required:true
+        required:true,
+        enum:['Male','Female']
     },
     profile_img:{
         type:String,
