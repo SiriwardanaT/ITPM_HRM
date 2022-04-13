@@ -5,9 +5,14 @@
         <v-text-field
           v-model="title"
           :rules="rules"
+<<<<<<< HEAD
           label="Leave Type"
           outlined
           dense
+=======
+          hint="Leave Type"
+          label="Leave Type"
+>>>>>>> master
         ></v-text-field>
         <v-text-field
           v-model="value1"
@@ -15,6 +20,7 @@
           :min="1"
           :max="30"
           label="Number of leaves (Annual)"
+<<<<<<< HEAD
           inline
           controls
           outlined
@@ -27,6 +33,15 @@
 
             <span>Tooltip</span>
           </v-tooltip>
+=======
+          append-outer-icon="mdi-info"
+          inline
+          controls
+        >
+          <v-icon color="primary" dark v-bind="attrs" v-on="on">
+            mdi-home
+          </v-icon>
+>>>>>>> master
         </v-text-field>
         <v-text-field
           v-model="value2"
@@ -37,8 +52,11 @@
           append-outer-icon="mdi-map-marker"
           inline
           controls
+<<<<<<< HEAD
           outlined
           dense
+=======
+>>>>>>> master
         >
         </v-text-field>
 
@@ -63,8 +81,11 @@
           chips
           label="Applicable People"
           multiple
+<<<<<<< HEAD
           outlined
           dense
+=======
+>>>>>>> master
         ></v-select>
         <v-row>
           <v-col>
@@ -93,10 +114,3 @@ export default {
   },
 };
 </script>
-<style>
-.toolTip {
-  position: absolute;
-  top: 30%;
-  right: 20%;
-}
-</style>

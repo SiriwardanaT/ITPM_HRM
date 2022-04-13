@@ -23,6 +23,7 @@
               <v-text-field
                 label="Employee ID"
                 outlined
+                v-model="user.employeeName"
                 :rules="username_rule"
                 prepend-inner-icon="mdi-account"
                 dense
@@ -31,6 +32,7 @@
               <v-text-field
                 label="Password"
                 type="password"
+                v-model="user.password"
                 :rules="password_rule"
                 prepend-inner-icon="mdi-lock"
                 outlined
@@ -63,35 +65,49 @@
 <script>
 import logo from "../../../public/logo1.png";
 import ErrorMsg from "../../components/Notification/Error.vue";
+import AuthAPI from '../../services/authServices'
 export default {
   data() {
     return {
       username_rule : [v=> !! v  || "User Name is Required", v=>v && v.length > 6 || "Invalid User name"],
-      password_rule : [v=> !! v || "Password is Required" , v => v && v.length > 11 || "Invalid Password" ],
+      password_rule : [v=> !! v || "Password is Required" , v => v && v.length > 3 || "Invalid Password" ],
       img_log: logo,
       display: false,
-      msg: "",
+      msg: "Invalid User name or password",
       isActive: false,
       Isloading:false,
+
+      // bind data
+      user:{
+        employeeName :"",
+        password:""
+      }
+     
     };
   },
   components: {
     ErrorMsg,
   },
   methods: {
-    login() {
-      // this.msg = "Invalid UserName Password"
-      // this.isActive = true;
-      // setTimeout(()=>{
-      //   this.isActive = false
-      // },3000)
+    async login() {
       this.$refs.form.validate();
       if(this.$refs.form.validate()){
         this.Isloading = true;
-        setTimeout(()=>{
+        this.isActive = false
+        //login api call
+        const IsLogin = await AuthAPI.login(this.user)
+        if(IsLogin){
           this.Isloading = false
-          this.$route.push('/')
-        },1000)
+          this.$router.push({ path: '/' })
+        }
+        else{
+          this.Isloading = false
+          this.isActive = true
+        }
+
+        
+
+
       }
      
      

@@ -37,7 +37,7 @@
     </div>
     <v-spacer></v-spacer>
     <div class="ma-3">
-       <p style="font-size:14px">Tharindu ({{admin}})</p>
+       <p style="font-size:14px">{{current_user_name}} ({{admin}})</p>
     </div>
     <v-avatar color="red" v-cloak>
       <span class="white--text text-h5">CJ</span>
@@ -46,11 +46,16 @@
 </template>
 
 <script>
+import AuthHelpers from '../../services/authHelpers'
 export default {
   data(){
     return{
-      admin:"Admin"
+      admin:AuthHelpers.getAdminStatus() != 0 ? "Admin" : "User",
+      current_user_name :""
     }
+  },
+  created(){
+     this.current_user_name = AuthHelpers.getUsername();
   }
 };
 </script>

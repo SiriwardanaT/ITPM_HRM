@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import Dashboard from '../views/Dashboard/dashboard.vue'
 //authModule 
 import Login from '../views/AuthModule/Login.vue'
+import AuthService from '../services/authServices'
+import AuthHelpers from '../services/authHelpers'
+import AuthorizedView from '../views/AuthModule/AuthorizedView.vue'
 import Leave from '../views/LeaveModule/leave.vue'
 import AllLeave from '../views/LeaveModule/allLeave.vue';
 
@@ -17,7 +20,7 @@ const routes = [
     path: '/',
     name: 'dashboard',
     component: Dashboard,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true ,requiresAdmin :false}
   },
   {
     path:'/auth/login',
@@ -39,7 +42,7 @@ const routes = [
     path:'/member',
     name :"EmployeeList",
     component:EmployeeList,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true ,requiresAdmin :false}
   },
    
  
@@ -47,7 +50,11 @@ const routes = [
     path:'/member/add',
     name :"AddNewEmployee",
     component:AddEmployee,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true ,requiresAdmin :true}
+  },
+  {
+    path:'/error/401',
+    component:AuthorizedView
   }
 ]
 
@@ -58,13 +65,12 @@ const router = new VueRouter({
 })
 //router guard 
 router.beforeEach((to, from , next)=>{
-    console.log(to)
     if(to.meta.requiresAuth){
-        if(isAuth){
-           next()
+        if(to.meta.requiresAdmin){
+          AuthService.IsAuthenticated() && AuthHelpers.getAdminStatus() != 0 ? next(): next('/error/401')
         }
         else{
-          next('/auth/login')
+          AuthService.IsAuthenticated() ? next(): next('/auth/login')
         }
     }
     else{
