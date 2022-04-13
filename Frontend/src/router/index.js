@@ -42,7 +42,7 @@ const routes = [
    
  
   {
-    path:'/member/add',
+    path:'/member/:mode',
     name :"AddNewEmployee",
     component:AddEmployee,
     meta: { requiresAuth: true ,requiresAdmin :true}
