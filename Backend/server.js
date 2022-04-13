@@ -14,10 +14,12 @@ app.use(cors());
 //========== router import ==========  //
 const login = require('./src/routers/auth/LoginRouter')
 const userRouter = require('./src/routers/UserRouter')
+const leaveTypeRouter = require('./src/routers/LeaveTypeRoute');
 
 //========= router middlware usage ===== //
 app.use('/auth',login)
 app.use('/user',userRouter)
+app.use('/leaveType',leaveTypeRouter);
 
 
 
