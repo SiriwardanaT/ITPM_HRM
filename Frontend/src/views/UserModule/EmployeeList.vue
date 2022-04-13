@@ -32,11 +32,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Tharindu Harshana</td>
-              <td>thari@gmail.com</td>
-              <td>0762930117</td>
-              <td>Male</td>
+            <tr v-for="(employee , index) in EmployeeList" :key="index">
+              <td>{{employee.employeeName}}</td>
+              <td>{{employee.email}}</td>
+              <td>{{employee.phone}}</td>
+              <td>{{employee.gender}}</td>
               <td>
                 <v-chip
                   outlined
@@ -49,7 +49,7 @@
                 </v-chip>
               </td>
               <td>
-                <v-icon small class="mr-2" @click="editItem(item)">
+                <v-icon small class="mr-2" @click="editItem(employee._id)">
                   mdi-pencil
                 </v-icon>
                 <v-icon small class="ml-4" @click="editItem(item)">
@@ -65,16 +65,23 @@
 </template>
 
 <script>
+import UserService from '../../services/userService'
 export default {
     data(){
         return{
-
+            EmployeeList :[]
         }
     },
     methods:{
         navigateToAddemployee(){
             this.$router.push('/member/add')
+        },
+        editItem(item){
+             this.$router.push({path:'/member/update',query:{"_id":item}})
         }
+    },
+    async created(){
+      this.EmployeeList = await UserService.getAllEmployees();
     }
 };
 </script>
