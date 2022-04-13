@@ -40,7 +40,7 @@
        <p style="font-size:14px">{{current_user_name}} ({{admin}})</p>
     </div>
     <v-avatar color="red" v-cloak>
-      <span class="white--text text-h5">CJ</span>
+      <span class="white--text text-h5">{{current_user_name[0]}}</span>
     </v-avatar>    
   </v-app-bar>
 </template>
