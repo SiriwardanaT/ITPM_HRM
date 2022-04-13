@@ -21,7 +21,7 @@
           <v-container>
             <v-form class="login-form" ref="form">
               <v-text-field
-                label="Employee ID"
+                label="Employee Name"
                 outlined
                 v-model="user.employeeName"
                 :rules="username_rule"
