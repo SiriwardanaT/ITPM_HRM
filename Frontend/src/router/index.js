@@ -27,8 +27,13 @@ const routes = [
   {
     path: '/leave',
     name: 'leave',
-    component:Leave,
+    component:AllLeave,
    
+  },
+  {
+    path: '/leave/add',
+    name: 'leave',
+    component:Leave,
   },
   {
     path:'/member',
