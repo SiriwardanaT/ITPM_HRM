@@ -35,6 +35,7 @@
 <script>
 import logo from "../../../public/logo1.png";
 import AppOptions from '../../components/SideBarSection/SideBarOptionItems'
+import authHelper from '../../services/authHelpers'
 export default {
   data: () => ({
     AppName:"RASA PVT",
@@ -48,7 +49,7 @@ export default {
     },
   },
   mounted(){
-     var admin = true
+     var admin = authHelper.getAdminStatus();
      if(admin == true){
         this.items = AppOptions.item
      }
