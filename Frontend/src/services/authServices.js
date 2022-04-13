@@ -18,6 +18,9 @@ const AuthAPI = {
             }
            
         },
+        IsAuthenticated :()=>{
+                return authHelper.getToken() != null ? true:false
+        }
 }
 
 export default AuthAPI;
