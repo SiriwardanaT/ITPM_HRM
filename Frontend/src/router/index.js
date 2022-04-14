@@ -12,6 +12,7 @@ import AllLeave from '../views/LeaveModule/allLeave.vue';
 //user module
 import EmployeeList from '../views/UserModule/EmployeeList.vue'
 import AddEmployee from '../views/UserModule/AddNewUser.vue'
+import Profile from '../views/UserModule/Profile.vue'
 Vue.use(VueRouter)
 
 const isAuth = true
@@ -46,6 +47,10 @@ const routes = [
     name :"AddNewEmployee",
     component:AddEmployee,
     meta: { requiresAuth: true ,requiresAdmin :true}
+  },
+  {
+    path:'/profile',
+    component:Profile
   },
   {
     path:'/error/401',
