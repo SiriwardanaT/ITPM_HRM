@@ -11,7 +11,7 @@ export const item = [
 ]
 export const userItems = [
     { title: "Dashboard", icon: "mdi-view-dashboard",to:"/" },
-    { title: "My Profile", icon: "mdi-account", to:'/member' },
+    { title: "My Profile", icon: "mdi-account", to:'/profile' },
     { title: "Leave", icon: "mdi-table-account" ,to:'/leave'},
     { title: "Project", icon: "mdi-clipboard-text-outline",to:'/projects' },
     { title: "Payroll", icon: "mdi-currency-usd" ,to:'/payroll'},
