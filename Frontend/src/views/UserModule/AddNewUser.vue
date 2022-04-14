@@ -1,8 +1,33 @@
 <template>
   <v-container>
-    <h2 v-if="this.$route.path =='/member/update'">Update Employee</h2>
-    <h2 v-if="this.$route.path =='/member/add'">Add Employee</h2>
-    <v-row> </v-row>
+   
+    <v-row>
+        <v-col>
+            <h2 v-if="this.$route.path =='/member/update'">Update Employee</h2>
+            <h2 v-if="this.$route.path =='/member/add'">Add Employee</h2>
+        </v-col>
+        <v-col v-if="this.$route.path =='/member/update'">
+            <v-card style="height:50px" elevation="6">
+                <v-container>
+                  <div>
+                    <v-chip
+                    class=""
+                    color="success"
+                    outlined
+                    pill
+                  >
+                   EID  {{user.employeeId}}
+                    <v-icon right>
+                      mdi-account-outline
+                    </v-icon>
+                  </v-chip>
+                  </div>
+                </v-container>
+               
+            </v-card>
+        </v-col>
+         
+    </v-row>
     <!-- form start -->
     <v-form ref="form">
       <div class="form-sec">
@@ -104,7 +129,7 @@
               </div>
             </v-col>
 
-            <v-col>
+            <v-col v-if="this.$route.path =='/member/add'">
               <v-chip style="width: 50%">Password Information</v-chip>
               <div class="mt-3">
                 <v-text-field
@@ -115,6 +140,23 @@
                   v-model="user.password"
                   :rules="password_rule"
                 ></v-text-field>
+              </div>
+            </v-col>
+             <v-col v-if="this.$route.path =='/member/update'">
+              <v-chip style="width: 50%">Update Status </v-chip>
+              <div class="mt-3">
+                      <v-radio-group v-model="user.status">
+                          <v-radio
+                            label="Active"
+                            value="true"
+                            key="1"
+                          ></v-radio>
+                           <v-radio
+                            key="2"
+                            label="Inactive"
+                            value="false"
+                          ></v-radio>
+                      </v-radio-group>
               </div>
             </v-col>
           </v-row>
@@ -191,6 +233,8 @@ export default {
 
       //bind data
       user: {
+        _id:"",
+        employeeId:"",
         employeeName: "",
         phone: "",
         email: "",
@@ -201,6 +245,7 @@ export default {
         gender: "",
         profile_img: "",
         password: "",
+        status:""
       },
     };
   },
@@ -212,18 +257,53 @@ export default {
   methods: {
     async login() {
       this.SuccessActive = false;
-      this.ErrActive = false
+      this.ErrActive = false;
       this.$refs.form.validate();
       if (this.$refs.form.validate()) {
+          this.Isloading = true;
           console.log(this.user)
-          const IsCreate = await UserAPI.addEmployee(this.user);
-          IsCreate ? this.SuccessActive = true : this.ErrActive = true
+          if(this.$route.path =='/member/update'){
+              console.log(this.user);
+              this.Isloading = true;
+              const IsUpdate = await UserAPI.updateEmployee(this.user,this.user._id);
+              if(IsUpdate){
+                  this.Isloading = false;
+                  this.SuccessActive = true;
+                  this.Successmsg = "Updated SuccessFully"
+              }
+              else{
+                alert("err")
+              }
+              
+
+          }
+          else if(this.$route.path =='/member/add'){
+            const IsCreate = await UserAPI.addEmployee(this.user);
+            // IsCreate ? this.SuccessActive : this.ErrActive = true
+            if(IsCreate){
+               this.SuccessActive = true;
+               this.Isloading = false;
+            }
+            else{
+                this.ErrActive = true
+                this.Isloading = false;
+            }
+          }
+          else{
+             alert("Invalid")
+          }
+          
       }
     },
   },
-  created() {
-    
-    setTimeout(() => {
+  async created() {
+    setTimeout(async() => {
+      if(this.$route.path =='/member/update'){
+          const UserId = this.$route.query._id
+          const Curruntuser = await UserAPI.getEmployeeById(UserId);
+          this.user = Curruntuser;
+          this.user.birthData = Curruntuser.birthData.split('T')[0]
+      }
       this.Isloading = false;
     }, 2000);
   },

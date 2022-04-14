@@ -19,7 +19,7 @@
     </div>
     <!-- table section -->
     <div class="table-section">
-      <v-simple-table>
+      <v-simple-table :items-per-page="5">
         <template v-slot:default>
           <thead>
             <tr>
@@ -41,11 +41,12 @@
                 <v-chip
                   outlined
                   small
-                  color="green accent-2 white--text"
+                  :color="employee.status ? 'green accent-2 white--text':'red accent-2 white--text'"
                   pill
                   class="ma-3"
                 >
-                  Active
+                  <span v-if="employee.status">Active</span> 
+                  <span v-if="!employee.status">InActive</span> 
                 </v-chip>
               </td>
               <td>
@@ -81,6 +82,7 @@ export default {
         }
     },
     async created(){
+      // color="green accent-2 white--text"
       this.EmployeeList = await UserService.getAllEmployees();
     }
 };
