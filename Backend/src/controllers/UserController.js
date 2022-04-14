@@ -67,6 +67,50 @@ const IsExistingEmployee = async (nic)=>{
    
 
 }
+const getEmployeeById = async (req , res )=>{
+    try{
+        const user = await userModel.findById(req.params.id);
+        if(user){
+            res.status(http_cods.StatusCodes.OK).send(user);
+        }
+        else{
+            res.send(http_cods.StatusCodes.NOT_FOUND).send(http_cods.ReasonPhrases.NOT_FOUND);
+        }
+    }
+    catch(err){
+        res.status(500).send(err);
+    }
+
+}
+
+const updateEmployee = async (req , res )=>{
+         try{
+            const updateUser = await UserModal.updateOne({"_id":req.params.id},
+            {
+                $set:{
+                    employeeName: req.body.employeeName,
+                    phone: req.body.phone,
+                    Nic: req.body.Nic,
+                    email: req.body.email,
+                    birthData: req.body.birthData,
+                    address: req.body.address,
+                    jobRole: req.body.jobRole,
+                    gender: req.body.gender,
+                    profile_img: "",
+                    status:req.body.status
+                }
+            })
+            if(updateUser.modifiedCount == 1){
+                res.status(http_cods.StatusCodes.OK).send(http_cods.ReasonPhrases.OK)
+            }
+            else{
+                res.status(http_cods.StatusCodes.NOT_MODIFIED).send(http_cods.ReasonPhrases.NOT_MODIFIED)
+            }
+         }
+         catch(err){
+                res.status(500).send("error occure")
+         }
+}
 
 //helper methods
 const GenerateEmpId = (role, Nic) => {
@@ -92,6 +136,8 @@ const getAdminAccess = (role) => {
 
 module.exports = {
     addEmployee,
-    getAllEmployees
+    getAllEmployees,
+    getEmployeeById,
+    updateEmployee
 }
 
