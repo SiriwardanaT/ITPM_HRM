@@ -20,6 +20,24 @@ const UserAPI = {
         catch(err){
             return null;
         }
+    },
+    getEmployeeById : async (id)=>{
+        try{
+            const res = await ins.get('user/'+id);
+            return res.status == 200 ? res.data:null
+        }
+        catch(err){
+            return null;
+        }
+    },
+    updateEmployee : async (payload, id) =>{
+         try{
+            const res = await ins.put('user/'+id,payload);
+            return res.status == 200 ? true :false
+         }
+         catch(err){
+            return false;
+         }
     }
 
 }
