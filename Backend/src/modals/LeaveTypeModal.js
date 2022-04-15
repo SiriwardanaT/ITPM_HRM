@@ -7,11 +7,11 @@ const LeaveType = new mongoose.Schema({
         required:true
     },
    annualLeaveNumber :{
-       type:String,
+       type:Number,
        required:true
     },
     monthLeaveNumber:{
-        type:String,
+        type:Number,
         required:true
     },
     salaryDeduction:{
