@@ -3,14 +3,15 @@
     <div class="top-section">
       <h2>Leave Types</h2>
       <v-row>
-        <v-col cols="9">
-          
-        </v-col>
+        <v-col cols="9"> </v-col>
         <v-col>
-          <v-btn @click="addLeave()" class="teal lighten-2 white--text"> Add New Leave Type </v-btn>
+          <v-btn @click="addLeave()" class="teal lighten-2 white--text">
+            Add New Leave Type
+          </v-btn>
         </v-col>
       </v-row>
     </div>
+
     <!-- table section -->
     <div class="table-section">
       <v-simple-table>
@@ -27,19 +28,29 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Casual Leave</td>
-              <td>12</td>
-              <td>1</td>
-              <td>Yes</td>
-              <td>dhs sjdhsj sdhsj jddhdsj</td>
-              <td>all</td>
-             
+            <tr v-for="(leave, index) in leavesList" v-bind:key="index">
+              <td>{{ leave.leaveName }}</td>
+              <td>{{ leave.annualLeaveNumber }}</td>
+              <td>{{ leave.monthLeaveNumber }}</td>
+              <td>{{ leave.salaryDeduction }}</td>
+              <td>{{ leave.description }}</td>
+              <td>{{ leave.applicablePeople }}</td>
+
               <td>
-                <v-icon small class="mr-2" @click="editLeave(item)">
+                <v-icon
+                  small
+                  class="mr-2"
+                  color="orange"
+                  @click="getRowData(id)"
+                >
                   mdi-pencil
                 </v-icon>
-                <v-icon small class="ml-4" @click="editItem(item)">
+                <v-icon
+                  small
+                  class="ml-4"
+                  color="red"
+                  @click="getDeleteDialog(leave._id)"
+                >
                   mdi-delete
                 </v-icon>
               </td>
@@ -48,21 +59,61 @@
         </template>
       </v-simple-table>
     </div>
+
+    <DeleteModal :dialogDetails="dialogDetails" />
   </v-container>
 </template>
 
 <script>
+import ins from "../../Interceptors/axios";
+// import { mdiAlertCircleOutline } from '@mdi/js';
+import _ from "lodash";
+
+// import UpdateModal from './modals/UpdateLeaveTypeModal.vue';
+import DeleteModal from "../../components/Notification/DeleteDialog.vue";
+
 export default {
   data() {
-    return {};
+    return {
+      leavesList: [],
+      dialogDetails:false
+    };
+  },
+  components: {
+    DeleteModal,
   },
   methods: {
     addLeave() {
       this.$router.push("/leave/add");
     },
-     editLeave() {
-      this.$router.push("/leave/update");
+    getRowData(id) {
+      this.$refs["update"].show();
+      this.leaveId = id;
     },
+    getDeleteDialog(id) {
+      console.log("hit", id);
+      this.dialogDetails = true;
+      // this.leaveId = id;
+    },
+    async deleteRecord(leaveId) {
+      console.log("leaveId", leaveId);
+      const getDeleteSuccess = await ins.delete(
+        `/leaveType/deleteLeave/${leaveId}`
+      );
+      console.log("ccc", getDeleteSuccess);
+      if (getDeleteSuccess) {
+        this.dialogDetails = false;
+        // this.$router.push({ path: '/leave' })
+      }
+    },
+    async getLeaves() {
+      const getData = await ins.get("/leaveType/getLeave");
+      const getLeaveList = _.get(getData, "data", null);
+      this.leavesList = getLeaveList;
+    },
+  },
+  mounted() {
+    this.getLeaves();
   },
 };
 </script>
@@ -74,5 +125,27 @@ export default {
 }
 .top-section {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.red-icon {
+  position: absolute;
+  top: 25%;
+  left: 15%;
+}
+.close-icon {
+  position: absolute;
+  top: 8%;
+  left: 90%;
+}
+.delete {
+  position: absolute;
+  left: 20%;
+  top: 60%;
+  width: 150px;
+}
+.close {
+  position: absolute;
+  right: 20%;
+  top: 60%;
+  width: 150px;
 }
 </style>

@@ -39,6 +39,11 @@ const routes = [
     component:Leave,
   },
   {
+    path: '/leave/update',
+    name: 'leave',
+    component:Leave,
+  },
+  {
     path:'/member',
     name :"EmployeeList",
     component:EmployeeList,

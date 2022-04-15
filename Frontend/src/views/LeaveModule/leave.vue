@@ -2,31 +2,24 @@
   <div>
     <v-container>
       <v-row>
-        <v-col>
-          <center><h1 class="mt-15 black--text">Add Leave Type</h1></center>
-          <img
-            :src="img_leave"
-            alt=""
-            height="500"
-            width="500"
-            style="margin-top: 10%; margin-left: 8%"
-          />
-        </v-col>
-        <v-col>
+     
+          <center><h2 class="mt-15 pb-6 black--text" v-if="this.$route.path =='/leave/update'">Update Leave Type</h2></center>
+            <center><h2 class="mt-15 pb-6 black--text" v-if="this.$route.path =='/leave/add'">Add Leave Type</h2></center>
+        </v-row>
+       
+        <v-row>
           <Forms />
-        </v-col>
-      </v-row>
+        </v-row>
+      
     </v-container>
   </div>
 </template>
 
 <script>
-import leaves from "../../assets/leave.png";
 import Forms from "../../views/LeaveModule/form.vue";
 export default {
   data() {
     return {
-      img_leave: leaves,
     };
   },
   components: {
