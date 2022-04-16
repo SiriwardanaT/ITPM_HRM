@@ -9,6 +9,9 @@ app.post('/addLeave',leaveController.createLeave);
 //:GET method
 app.get('/getLeave',leaveController.fecthLeaves);
 
+//:GET method to retrive data for one record
+app.get('/getDataFor/:id',leaveController.getDataForOneRecord);
+
 //:PUT method
 app.put('/updateLeave/:id',leaveController.updateLeaveType);
 

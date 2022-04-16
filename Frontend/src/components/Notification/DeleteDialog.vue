@@ -1,23 +1,33 @@
 <template>
-  <v-dialog v-model="dialogDetails"  persistent width="600">
-    <v-card height="25vh">
-      <v-icon class="red-icon" color="red"> mdi-alert-circle </v-icon>
-      <v-icon class="close-icon"> mdi-close-circle-outline </v-icon>
-      <v-card-title class="justify-center">
-        <h5>Are you sure you want to delete this record ?</h5>
+  <v-dialog v-model="dialogDetails" persistent width="400">
+    <v-card height="55vh">
+      <v-icon class="redAlert-icon" color="red" size="100">
+        mdi-close-circle
+      </v-icon>
+      <v-icon class="close-icon" @click="dialogDetails = false">
+        mdi-close
+      </v-icon>
+      <v-card-title class="mainTitle">
+        <h3>Are you sure ?</h3>
       </v-card-title>
+      <div class="deleteContent">
+        <h5>
+          Do you really want to delete these records? This process cannot be
+          undone.
+        </h5>
+      </div>
 
       <v-card-actions>
         <v-btn
-          class="delete"
+          class="deleteBtn"
           color="red white--text darken-1"
-          @click="deleteRecord(leaveId)"
+          @click="$emit('doDelete')"
         >
           Delete
         </v-btn>
         <v-btn
-          class="close"
-          color="green white--text darken-1"
+          class="closeBtn"
+          color="#A0A0A0 white--text darken-1"
           @click="dialogDetails = false"
         >
           Cancel
@@ -29,11 +39,50 @@
 <script>
 export default {
   data() {
-    return {
-      props:{
-        dialogDetails:Boolean
-      }
-    };
+    return {};
+  },
+  props: {
+    dialogDetails: Boolean,
   },
 };
 </script>
+<style>
+.redAlert-icon {
+  position: absolute;
+  top: 6%;
+  left: 38%;
+}
+.close-icon {
+  position: absolute;
+  top: -5%;
+  left: 65%;
+}
+.mainTitle {
+  position: absolute;
+  top: 33%;
+  left: 25%;
+  color: #404040;
+  text-align: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.deleteContent {
+  position: absolute;
+  top: 53%;
+  left: 3%;
+  color: #a8a8a8;
+  text-align: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.deleteBtn {
+  position: absolute;
+  left: 15%;
+  top: 75%;
+  width: 120px;
+}
+.closeBtn {
+  position: absolute;
+  right: 15%;
+  top: 75%;
+  width: 120px;
+}
+</style>
