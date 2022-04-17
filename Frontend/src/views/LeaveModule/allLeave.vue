@@ -14,7 +14,7 @@
 
     <!-- table section -->
     <div class="table-section">
-      <v-simple-table>
+      <v-simple-table big>
         <template v-slot:default>
           <thead>
             <tr>
@@ -39,15 +39,15 @@
               <td>
                 <v-icon
                   small
-                  class="mr-2"
+                  class="mr-1"
                   color="orange"
-                  @click="getRowData(id)"
+                  @click="getRowData(leave._id)"
                 >
                   mdi-pencil
                 </v-icon>
                 <v-icon
                   small
-                  class="ml-4"
+                  class="ml-3"
                   color="red"
                   @click="getDeleteDialog(leave._id)"
                 >
@@ -60,23 +60,23 @@
       </v-simple-table>
     </div>
 
-    <DeleteModal :dialogDetails="dialogDetails" />
+    <DeleteModal
+      :dialogDetails="dialogDetails"
+      @doDelete="deleteRecord(leaveId)"
+    />
   </v-container>
 </template>
 
 <script>
 import ins from "../../Interceptors/axios";
-// import { mdiAlertCircleOutline } from '@mdi/js';
 import _ from "lodash";
-
-// import UpdateModal from './modals/UpdateLeaveTypeModal.vue';
 import DeleteModal from "../../components/Notification/DeleteDialog.vue";
 
 export default {
   data() {
     return {
       leavesList: [],
-      dialogDetails:false
+      dialogDetails: false,
     };
   },
   components: {
@@ -86,24 +86,23 @@ export default {
     addLeave() {
       this.$router.push("/leave/add");
     },
-    getRowData(id) {
-      this.$refs["update"].show();
-      this.leaveId = id;
+    async getRowData(id) {
+      this.$router.push({path:"/leave/update",query:{_id:id}});
+     
     },
     getDeleteDialog(id) {
-      console.log("hit", id);
+      this.dialogDetails = false;
       this.dialogDetails = true;
-      // this.leaveId = id;
+      this.leaveId = id;
     },
     async deleteRecord(leaveId) {
-      console.log("leaveId", leaveId);
       const getDeleteSuccess = await ins.delete(
         `/leaveType/deleteLeave/${leaveId}`
       );
-      console.log("ccc", getDeleteSuccess);
+
       if (getDeleteSuccess) {
         this.dialogDetails = false;
-        // this.$router.push({ path: '/leave' })
+        this.$router.go();
       }
     },
     async getLeaves() {
@@ -126,26 +125,5 @@ export default {
 .top-section {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-.red-icon {
-  position: absolute;
-  top: 25%;
-  left: 15%;
-}
-.close-icon {
-  position: absolute;
-  top: 8%;
-  left: 90%;
-}
-.delete {
-  position: absolute;
-  left: 20%;
-  top: 60%;
-  width: 150px;
-}
-.close {
-  position: absolute;
-  right: 20%;
-  top: 60%;
-  width: 150px;
-}
+
 </style>
