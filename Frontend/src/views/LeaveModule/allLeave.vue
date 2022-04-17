@@ -64,6 +64,8 @@
       :dialogDetails="dialogDetails"
       @doDelete="deleteRecord(leaveId)"
     />
+    <ErrorMsg :msg="Errormsg" v-if="ErrActive" />
+    <SuccessMsg :msg="Successmsg" v-if="SuccessActive" />
   </v-container>
 </template>
 
@@ -71,24 +73,31 @@
 import ins from "../../Interceptors/axios";
 import _ from "lodash";
 import DeleteModal from "../../components/Notification/DeleteDialog.vue";
+import ErrorMsg from "../../components/Notification/Error.vue";
+import SuccessMsg from "../../components/Notification/Success.vue";
 
 export default {
   data() {
     return {
       leavesList: [],
       dialogDetails: false,
+      Errormsg: "Something went wrong while adding data",
+      ErrActive: false,
+      SuccessActive: false,
+      Successmsg: "Record Successfully Deleted !",
     };
   },
   components: {
     DeleteModal,
+    ErrorMsg,
+    SuccessMsg,
   },
   methods: {
     addLeave() {
       this.$router.push("/leave/add");
     },
     async getRowData(id) {
-      this.$router.push({path:"/leave/update",query:{_id:id}});
-     
+      this.$router.push({ path: "/leave/update", query: { _id: id } });
     },
     getDeleteDialog(id) {
       this.dialogDetails = false;
@@ -96,13 +105,20 @@ export default {
       this.leaveId = id;
     },
     async deleteRecord(leaveId) {
-      const getDeleteSuccess = await ins.delete(
-        `/leaveType/deleteLeave/${leaveId}`
-      );
+      try {
+        const getDeleteSuccess = await ins.delete(
+          `/leaveType/deleteLeave/${leaveId}`
+        );
+        if (getDeleteSuccess) {
+          this.dialogDetails = false;
 
-      if (getDeleteSuccess) {
-        this.dialogDetails = false;
-        this.$router.go();
+          setTimeout(() => {
+            this.$router.go();
+          }, 2000);
+          this.SuccessActive = true;
+        }
+      } catch (err) {
+        this.ErrActive = true;
       }
     },
     async getLeaves() {
@@ -125,5 +141,4 @@ export default {
 .top-section {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-
 </style>
