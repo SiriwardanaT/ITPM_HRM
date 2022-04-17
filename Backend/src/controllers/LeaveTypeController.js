@@ -10,10 +10,6 @@ const createLeave = async (req, res) => {
     const description = req.body.description;
     const applicablePeople = req.body.applicablePeople;
 
-    console.log("1", leaveName);
-    console.log("2", annualLeaveNumber);
-    console.log("3", monthLeaveNumber);
-    console.log("4", salaryDeduction);
     const leaveModal = new leaveTypeModal({
       leaveName,
       annualLeaveNumber,
@@ -22,7 +18,7 @@ const createLeave = async (req, res) => {
       description,
       applicablePeople,
     });
-    // console.log("dd",leaveModal)
+
 
     const addingResult = await leaveModal.save();
     if (addingResult) {
@@ -32,14 +28,13 @@ const createLeave = async (req, res) => {
     }
   } catch (err) {
     res.status(500).send(err);
-    console.log("err", err);
+    
   }
 };
 
 // Fetching all leave types
 const fecthLeaves = async (req, res) => {
   const fetchResult = await leaveTypeModal.find();
-  console.log("fetched", fetchResult);
   if (fetchResult) {
     res.status(201).send(fetchResult);
   } else {
@@ -49,7 +44,6 @@ const fecthLeaves = async (req, res) => {
 
 const getDataForOneRecord = async (req, res) => {
   const leaveId = req.params.id;
-  console.log("leave",leaveId);
   const fetchOneData = await leaveTypeModal.findById(leaveId);
   if (fetchOneData) {
     res.status(201).send(fetchOneData);
@@ -62,7 +56,6 @@ const getDataForOneRecord = async (req, res) => {
 const updateLeaveType = async (req, res) => {
   try {
     const leaveId = req.params.id;
-    console.log("id", leaveId);
     const {
       leaveName,
       annualLeaveNumber,
@@ -79,8 +72,6 @@ const updateLeaveType = async (req, res) => {
       description,
       applicablePeople,
     });
-    console.log("data1", leaveName);
-    console.log("data", updatedLeaveData);
     const updatedResult = await leaveTypeModal.updateOne(
       { _id: leaveId },
       {
@@ -109,7 +100,6 @@ const updateLeaveType = async (req, res) => {
 
 const deleteLeaveType = async (req, res) => {
   const leaveId = req.params.id;
-  console.log("*", leaveId);
   const deleteResult = await leaveTypeModal.findByIdAndDelete(leaveId);
 
   if (deleteResult) {

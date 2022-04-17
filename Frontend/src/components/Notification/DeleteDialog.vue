@@ -60,7 +60,7 @@ export default {
 .mainTitle {
   position: absolute;
   top: 33%;
-  left: 25%;
+  left: 23%;
   color: #404040;
   text-align: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;

@@ -151,6 +151,7 @@ export default {
       show1: false,
       show2: false,
       Isloading: false,
+      Errormsg: "Something went wrong while adding data",
       ErrActive: false,
       SuccessActive: false,
       Successmsg: "Successfully added a new leave Type",
@@ -185,37 +186,47 @@ export default {
       this.ErrActive = false;
       this.$refs.form.validate();
       if (this.$refs.form.validate()) {
-        this.Isloading = false;
         if (this.$route.path == "/leave/add") {
-          this.Isloading = true;
-          const addLeaveType = await ins.post("leaveType/addLeave", this.leave);
-          if (addLeaveType) {
-            this.Isloading = false;
-            this.$router.push({ path: "/leave" });
-            this.SuccessActive = true;
-          } else {
+          try {
+            const addLeaveType = await ins.post(
+              "leaveType/addLeave",
+              this.leave
+            );
+            if (addLeaveType) {
+              this.SuccessActive = true;
+
+              setTimeout(() => {
+                this.$router.push({ path: "/leave" });
+              }, 2000);
+            }
+          } catch (err) {
             this.ErrActive = true;
-            this.Isloading = false;
           }
         }
       }
     },
     async updateLeave() {
       const leaveId = this.$route.query._id;
-      const updateLeaveType = await ins.put(
+      try{
+       const updateLeaveType = await ins.put(
         `leaveType/updateLeave/${leaveId}`,
         this.leave
       );
-
-      if (updateLeaveType) {
-        this.Isloading = false;
+        if (updateLeaveType) {
         this.SuccessActive = true;
         this.Successmsg = "Updated SuccessFully";
-        this.$router.push({ path: "/leave" });
-      } else {
-        this.ErrActive = true;
+         setTimeout(() => {
+                this.$router.push({ path: "/leave" });
+              }, 2000);
+       
+      }
+      }catch(err){
+         this.ErrActive = true;
         this.Isloading = false;
       }
+     
+
+     
     },
     clearData() {
       (this.leave.leaveName = ""),
@@ -233,7 +244,7 @@ export default {
       const getReleventData = _.get(exisitingLeave, "data", null);
       this.leave = getReleventData;
     }
-    // this.Isloading = false;
+    
   },
 };
 </script>

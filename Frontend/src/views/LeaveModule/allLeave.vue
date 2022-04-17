@@ -69,10 +69,7 @@
 
 <script>
 import ins from "../../Interceptors/axios";
-// import { mdiAlertCircleOutline } from '@mdi/js';
 import _ from "lodash";
-
-// import UpdateModal from './modals/UpdateLeaveTypeModal.vue';
 import DeleteModal from "../../components/Notification/DeleteDialog.vue";
 
 export default {
@@ -99,7 +96,6 @@ export default {
       this.leaveId = id;
     },
     async deleteRecord(leaveId) {
-      console.log("leaveId", leaveId);
       const getDeleteSuccess = await ins.delete(
         `/leaveType/deleteLeave/${leaveId}`
       );
@@ -112,7 +108,6 @@ export default {
     async getLeaves() {
       const getData = await ins.get("/leaveType/getLeave");
       const getLeaveList = _.get(getData, "data", null);
-      console.log("check", getLeaveList);
       this.leavesList = getLeaveList;
     },
   },
