@@ -36,12 +36,59 @@
           ></v-text-field>
     </div>
     <v-spacer></v-spacer>
-    <div class="ma-3">
-       <p style="font-size:14px">{{current_user_name}} ({{admin}})</p>
-    </div>
-    <v-avatar color="red" v-cloak>
+    <v-menu offset-y>
+    <template v-slot:activator="{ on, attrs }">
+       <v-avatar color="red" v-cloak  v-bind="attrs"
+          v-on="on">
       <span class="white--text text-h5">{{current_user_name[0]}}</span>
-    </v-avatar>    
+    </v-avatar>
+    </template>
+     <v-card>
+          <v-list-item-content class="justify-center">
+            <div class="mx-auto text-center">
+              <v-avatar
+                color="red"
+              >
+                <span class="white--text text-h5">{{current_user_name[0]}}</span>
+              </v-avatar>
+              <h3>{{current_user_name}}</h3>
+              <p class="text-caption mt-1">
+                  <v-chip
+      class="ma-2"
+      color="primary"
+      outlined
+      pill
+    >
+       {{admin}}
+      <v-icon right>
+        mdi-account-outline
+      </v-icon>
+    </v-chip>
+              
+              </p>
+              <v-divider class="my-3"></v-divider>
+              <v-btn
+                depressed
+                rounded
+                text
+              >
+                {{admin}} Profile
+              </v-btn>
+              <v-divider class="my-3"></v-divider>
+              <v-btn
+                @click="logout"
+                depressed
+                rounded
+                text
+              >
+               Logout
+              </v-btn>
+            </div>
+          </v-list-item-content>
+        </v-card>
+    </v-menu>
+   
+       
   </v-app-bar>
 </template>
 
@@ -51,7 +98,19 @@ export default {
   data(){
     return{
       admin:AuthHelpers.getAdminStatus() != 0 ? "Admin" : "User",
-      current_user_name :""
+      current_user_name :"",
+       items: [
+        { title: 'My Profile' },
+        { title: 'Settings' },
+        { title: 'login as employee' },
+        { title: 'Log out' },
+      ],
+    }
+  },
+  methods:{
+    logout(){
+      AuthHelpers.logout();
+      this.$router.push({ path: '/auth/login' })
     }
   },
   created(){
@@ -60,4 +119,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.list{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 10px !important;
+}
+</style>

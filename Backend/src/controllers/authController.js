@@ -10,10 +10,11 @@ const login = async (req, res) => {
         if (req.body.employeeName != null && req.body.password != null) {
             const extUser = await UserModal.findOne({
                 employeeName: req.body.employeeName,
-                password: req.body.password,
+                password: req.body.password
+                
             });
-            console.log(extUser)
-            if (extUser) {
+            console.log(extUser.status)
+            if (extUser.status) {
                 const token = jwt.sign(
                     {
                         _id: extUser._id,
