@@ -1,6 +1,5 @@
 <template>
   <v-container>
-   
     <v-row>
         <v-col>
             <h2 v-if="this.$route.path =='/member/update'">Update Employee</h2>
@@ -108,7 +107,7 @@
             ></v-text-field>
           </v-col>
           <v-col>
-            <v-file-input label="File input" outlined dense></v-file-input>
+            <v-file-input label="File input" v-model="user.profile_img" outlined dense></v-file-input>
           </v-col>
         </v-row>
 
@@ -187,6 +186,7 @@ import Loader from "../../components/Notification/Loading.vue";
 import UserAPI from "../../services/userService"
 import ErrorMsg from "../../components/Notification/Error.vue"
 import SuccessMsg from "../../components/Notification/Success.vue"
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -256,6 +256,7 @@ export default {
   },
   methods: {
     async login() {
+     
       this.SuccessActive = false;
       this.ErrActive = false;
       this.$refs.form.validate();
@@ -272,13 +273,27 @@ export default {
                   this.Successmsg = "Updated SuccessFully"
               }
               else{
-                alert("err")
+                  this.ErrActive = true
+                  this.Isloading = false;
+                  this.Errormsg = "No changes found"
               }
               
 
           }
           else if(this.$route.path =='/member/add'){
-            const IsCreate = await UserAPI.addEmployee(this.user);
+           const fd = new FormData();
+           fd.append("employeeName",this.user.employeeName)
+           fd.append("phone",this.user.phone)
+           fd.append("email",this.user.email)
+           fd.append("Nic",this.user.Nic)
+           fd.append("birthData",this.user.birthData)
+           fd.append("address",this.user.address)
+           fd.append("jobRole",this.user.jobRole)
+           fd.append("gender",this.user.gender)
+           fd.append("password",this.user.password)
+           fd.append("status",this.user.status)
+           fd.append("profile",this.user.profile_img)
+            const IsCreate = await UserAPI.addEmployee(fd);
             // IsCreate ? this.SuccessActive : this.ErrActive = true
             if(IsCreate){
                this.SuccessActive = true;
