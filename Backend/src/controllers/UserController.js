@@ -4,6 +4,8 @@ const UserModal = require('../modals/UserModal')
 const http_cods = require('http-status-codes')
 //add employee 
 const addEmployee = async (req, res) => {
+    const file1 = req.files.profile;
+    file1.mv(`img/`+""+file1.name)
     try {
         console.log(IsExistingEmployee(req.body.Nic))
         const Isext = await IsExistingEmployee(req.body.Nic);
@@ -85,6 +87,7 @@ const getEmployeeById = async (req , res )=>{
 
 const updateEmployee = async (req , res )=>{
          try{
+           
             const updateUser = await UserModal.updateOne({"_id":req.params.id},
             {
                 $set:{
