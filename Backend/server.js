@@ -3,6 +3,8 @@ const app = express();
 const cors = require('cors')
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
+const fileuplaod = require('express-fileupload')
+app.use(fileuplaod({createParentPath:true}))
 const dotenv = require('dotenv')
 dotenv.config();
 
@@ -10,6 +12,7 @@ dotenv.config();
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({extended:true}))
 app.use(cors());
+app.use(express.static(__dirname + '/img'));
 
 //========== router import ==========  //
 const login = require('./src/routers/auth/LoginRouter')
@@ -42,3 +45,8 @@ app.listen(port,()=>{
 
 
 
+// app.post('/upload',(req,res)=>{
+    
+//     console.log(req)
+//     res.send("uploaded")
+// })
