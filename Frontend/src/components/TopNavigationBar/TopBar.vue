@@ -40,7 +40,7 @@
     <template v-slot:activator="{ on, attrs }">
        <v-avatar color="red" v-cloak  v-bind="attrs"
           v-on="on">
-      <span class="white--text text-h5">{{current_user_name[0]}}</span>
+      <span class="white--text text-h6">{{current_user_name[0]}}</span>
     </v-avatar>
     </template>
      <v-card>
@@ -49,7 +49,7 @@
               <v-avatar
                 color="red"
               >
-                <span class="white--text text-h5">{{current_user_name[0]}}</span>
+                <span class="white--text text-h6"><img :src="current_img" alt=""></span>
               </v-avatar>
               <h3>{{current_user_name}}</h3>
               <p class="text-caption mt-1">
@@ -99,6 +99,7 @@ export default {
     return{
       admin:AuthHelpers.getAdminStatus() != 0 ? "Admin" : "User",
       current_user_name :"",
+      current_img :"",
        items: [
         { title: 'My Profile' },
         { title: 'Settings' },
@@ -115,6 +116,7 @@ export default {
   },
   created(){
      this.current_user_name = AuthHelpers.getUsername();
+     this.current_img = AuthHelpers.getUserProfileImage();
   }
 };
 </script>
