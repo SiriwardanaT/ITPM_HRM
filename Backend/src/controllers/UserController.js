@@ -90,8 +90,6 @@ const getEmployeeById = async (req , res )=>{
 }
 const getUserProfile = async ( req , res )=>{
     try{
-        
-        console.log(req)
         const user = await userModel.findOne({"_id":req.body.curruntUserId});
         if(user){
             res.status(http_cods.StatusCodes.OK).send(user);
@@ -119,7 +117,6 @@ const updateEmployee = async (req , res )=>{
                     address: req.body.address,
                     jobRole: req.body.jobRole,
                     gender: req.body.gender,
-                    profile_img: "",
                     status:req.body.status
                 }
             })
