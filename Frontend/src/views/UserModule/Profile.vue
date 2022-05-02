@@ -10,7 +10,7 @@
         <v-list-item three-line>
           <v-list-item-content>
             <div class="text-overline mb-4">
-              <h2>SE 10332</h2>
+              <h2>{{userObj.employeeId}}</h2>
             </div>
             <v-list-item-title class="text-h5 mb-1">
              {{userObj.employeeName}}
