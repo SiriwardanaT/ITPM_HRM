@@ -1,9 +1,10 @@
 const AuthHelpers = {
-    setCurruntUser(token,username,jobrole,isAdmin){
+    setCurruntUser(token,username,jobrole,isAdmin,profile_img){
         localStorage.setItem('token',token)
         localStorage.setItem('username',username)
         localStorage.setItem('jobrole',jobrole)
         localStorage.setItem('isAdmin',isAdmin)
+        localStorage.setItem('profile_img',profile_img)
     },
     getToken(){
         return localStorage.getItem('token');
@@ -16,6 +17,9 @@ const AuthHelpers = {
     },
     getAdminStatus(){
         return localStorage.getItem('isAdmin');
+    },
+    getUserProfileImage(){
+        return localStorage.getItem('profile_img');
     },
     logout(){
         localStorage.removeItem('token')

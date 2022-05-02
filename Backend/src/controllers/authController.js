@@ -22,7 +22,14 @@ const login = async (req, res) => {
                     },
                     auth_constant.TOKEN_KEY
                 );
-                res.status(statuscode.StatusCodes.ACCEPTED).json({token:token,jobRole:extUser.jobRole,name:extUser.employeeName,isAdmin:extUser.isAdmin});
+                res.status(statuscode.StatusCodes.ACCEPTED).json(
+                    {
+                        token:token,
+                        jobRole:extUser.jobRole,
+                        name:extUser.employeeName,
+                        isAdmin:extUser.isAdmin,
+                        profile_img:extUser.profile_img
+                    });
             } else {
                 res.status(statuscode.StatusCodes.NOT_FOUND).send(statuscode.ReasonPhrases.NOT_FOUND);
             }

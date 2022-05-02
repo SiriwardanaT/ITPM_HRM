@@ -9,7 +9,8 @@ const AuthAPI = {
                     response.data.token,
                     response.data.name,
                     response.data.jobRole,
-                    response.data.isAdmin
+                    response.data.isAdmin,
+                    response.data.profile_img
                 )
                 return true;
             }

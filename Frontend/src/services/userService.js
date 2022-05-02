@@ -30,6 +30,17 @@ const UserAPI = {
             return null;
         }
     },
+    
+    getUserProfile : async () =>{
+        try{
+            const res = await ins.get('user/profile/my');
+            return res.data;
+        }
+        catch(err){
+            return null;
+        }
+    },
+
     updateEmployee : async (payload, id) =>{
          try{
             const res = await ins.put('user/'+id,payload);
