@@ -4,8 +4,7 @@ const UserModal = require('../modals/UserModal')
 const http_cods = require('http-status-codes')
 //add employee 
 const addEmployee = async (req, res) => {
-    const file1 = req.files.profile;
-    file1.mv(`img/`+""+file1.name)
+
     try {
         console.log(IsExistingEmployee(req.body.Nic))
         const Isext = await IsExistingEmployee(req.body.Nic);
@@ -24,7 +23,11 @@ const addEmployee = async (req, res) => {
                 profile_img: "",
                 password: req.body.password
             }
+            const file1 = req.files.profile;
+            const profile_url = uploadProfileImage(file1,User.Nic);
+            User.profile_img = profile_url;
             const createUser = await userModel.create(User)
+
             if (createUser) {
                 res.status(http_cods.StatusCodes.CREATED).send(createUser)
             }
@@ -44,6 +47,7 @@ const addEmployee = async (req, res) => {
 //get all
 const getAllEmployees = async (req , res )=>{
     try{
+        console.log(req)
         const employees = await UserModal.find();
         res.status(200).send(employees)
     }
@@ -83,6 +87,22 @@ const getEmployeeById = async (req , res )=>{
         res.status(500).send(err);
     }
 
+}
+const getUserProfile = async ( req , res )=>{
+    try{
+        
+        console.log(req)
+        const user = await userModel.findOne({"_id":req.body.curruntUserId});
+        if(user){
+            res.status(http_cods.StatusCodes.OK).send(user);
+        }
+        else{
+            res.send(http_cods.StatusCodes.NOT_FOUND).send(http_cods.ReasonPhrases.NOT_FOUND);
+        }
+    }
+    catch(err){
+        res.status(500).send(err);
+    }
 }
 
 const updateEmployee = async (req , res )=>{
@@ -136,11 +156,19 @@ const getAdminAccess = (role) => {
         return AuthConstant.ADMIN_PRIVILLADGE_REJECTED;
     }
 }
+const uploadProfileImage =(file,nic)=>{
+    const file_name = nic+"-"+file.name;
+    file.mv(`img/`+file_name)
+    const url = `http://localhost:5000/`+file_name;
+    return url;
+
+}
 
 module.exports = {
     addEmployee,
     getAllEmployees,
     getEmployeeById,
-    updateEmployee
+    updateEmployee,
+    getUserProfile
 }
 
