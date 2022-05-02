@@ -6,8 +6,9 @@
         <v-col cols="9">
           <div class="mt-5 search-bar" style="width:50%">
                <v-text-field
+               v-model="searchKey"
              prepend-inner-icon="mdi-account-search"
-            label="Search Employee"
+            label="Search Employee by email or username"
             solo
           ></v-text-field>
           </div>
@@ -32,7 +33,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(employee , index) in EmployeeList" :key="index">
+            <tr  v-if="fliterEmployeeList.length == 0"><td >No employee found</td></tr>
+            <tr  v-for="(employee , index) in fliterEmployeeList" :key="index">
               <td>{{employee.employeeName}}</td>
               <td>{{employee.email}}</td>
               <td>{{employee.phone}}</td>
@@ -70,7 +72,8 @@ import UserService from '../../services/userService'
 export default {
     data(){
         return{
-            EmployeeList :[]
+            EmployeeList :[],
+            searchKey :""
         }
     },
     methods:{
@@ -84,6 +87,14 @@ export default {
     async created(){
       // color="green accent-2 white--text"
       this.EmployeeList = await UserService.getAllEmployees();
+    },
+    computed:{
+        //search filters
+        fliterEmployeeList(){
+            return this.EmployeeList.filter((emp)=>{
+                 return emp.employeeName.match(this.searchKey) || emp.email.match(this.searchKey)
+             });
+        }
     }
 };
 </script>
