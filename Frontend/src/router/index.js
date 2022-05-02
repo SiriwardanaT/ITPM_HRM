@@ -50,7 +50,8 @@ const routes = [
   },
   {
     path:'/profile',
-    component:Profile
+    component:Profile,
+    meta: { requiresAuth: true ,requiresAdmin :false}
   },
   {
     path:'/error/401',
