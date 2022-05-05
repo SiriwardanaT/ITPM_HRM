@@ -88,25 +88,32 @@
         </v-list-item>
 
         <v-card-actions>
-          <v-btn outlined rounded text> Edit </v-btn>
+          <v-btn outlined rounded text><Updatemodal /> </v-btn>
         </v-card-actions>
       </v-card>
     </v-row>
+
   </v-container>
+  
 </template>
 
 <script>
 import UserService from '../../services/userService'
+import Updatemodal from '../../views/UserModule/UpdatemodalView.vue'
 export default {
        data(){
           return{
-              userObj :""
+              userObj :"",
+              dialog: false
           }
+       },
+       components:{
+         Updatemodal
        },
        async created(){
            const user = await UserService.getUserProfile();
-           console.log(user)
            this.userObj = user;
+           this.$store.commit("ToStoreCurrentUser",user);
            
        }
   
