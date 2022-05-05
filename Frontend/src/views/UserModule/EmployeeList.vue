@@ -96,6 +96,7 @@ export default {
              this.$router.push({path:'/member/update',query:{"_id":item}})
         },
         getDeleteDialog(id) {
+            
             this.dialogDetails = false;
             this.dialogDetails = true;
             this.employeeId = id;
@@ -120,6 +121,7 @@ export default {
     computed:{
         //search filters
         fliterEmployeeList(){
+            this.dialogDetails = false;
             return this.EmployeeList.filter((emp)=>{
                  return emp.employeeName.match(this.searchKey) || emp.email.match(this.searchKey)
              });
