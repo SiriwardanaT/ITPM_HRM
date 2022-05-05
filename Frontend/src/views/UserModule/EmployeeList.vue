@@ -55,7 +55,7 @@
                 <v-icon small class="mr-2" @click="editItem(employee._id)">
                   mdi-pencil
                 </v-icon>
-                <v-icon small class="ml-4" @click="editItem(item)">
+                <v-icon small class="ml-4" @click="getDeleteDialog(employee._id)">
                   mdi-delete
                 </v-icon>
               </td>
@@ -64,17 +64,29 @@
         </template>
       </v-simple-table>
     </div>
+    
+    <DeleteModal
+      :dialogDetails="dialogDetails"
+      @doDelete="deleteRecord(employeeId)"
+    />
+
   </v-container>
 </template>
 
 <script>
 import UserService from '../../services/userService'
+import DeleteModal from '../../components/Notification/DeleteDialog.vue'
 export default {
     data(){
         return{
             EmployeeList :[],
-            searchKey :""
+            searchKey :"",
+            employeeId :"",
+            dialogDetails : false
         }
+    },
+    components:{
+      DeleteModal
     },
     methods:{
         navigateToAddemployee(){
@@ -82,6 +94,23 @@ export default {
         },
         editItem(item){
              this.$router.push({path:'/member/update',query:{"_id":item}})
+        },
+        getDeleteDialog(id) {
+            this.dialogDetails = false;
+            this.dialogDetails = true;
+            this.employeeId = id;
+        },
+       async deleteRecord(Id){
+              // alert(Id)
+              const deleteEmployee = await UserService.deleteEmployee(Id);
+              console.log("implemented  =====")
+              alert(deleteEmployee)
+              if(deleteEmployee){
+                    this.dialogDetails = false;
+                    setTimeout(() => {
+                      this.$router.go();
+                  }, 1000);
+              }
         }
     },
     async created(){
