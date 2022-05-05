@@ -50,6 +50,15 @@ const UserAPI = {
          catch(err){
             return false;
          }
+    },
+
+    deleteEmployee : async (id) =>{
+        try{
+            const res = await ins.delete('user/'+id)
+            return res.status == 200 ? true :false
+        }catch(err){
+            return false;
+        }
     }
 
 }
