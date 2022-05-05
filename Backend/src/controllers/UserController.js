@@ -131,6 +131,32 @@ const updateEmployee = async (req , res )=>{
                 res.status(500).send("error occure")
          }
 }
+// const UpdateProfile = async (req , res )=>{
+//     try{
+      
+//        const updateUser = await UserModal.updateOne({"_id":req.params.id},
+//        {
+//            $set:{
+//                employeeName: req.body.employeeName,
+//                phone: req.body.phone,
+//                Nic: req.body.Nic,
+//                birthData: req.body.birthData,
+//                address: req.body.address,
+//                gender: req.body.gender,
+
+//            }
+//        })
+//        if(updateUser.modifiedCount == 1){
+//            res.status(http_cods.StatusCodes.OK).send(http_cods.ReasonPhrases.OK)
+//        }
+//        else{
+//            res.status(http_cods.StatusCodes.NOT_MODIFIED).send(http_cods.ReasonPhrases.NOT_MODIFIED)
+//        }
+//     }
+//     catch(err){
+//            res.status(500).send("error occure")
+//     }
+// }
 
 //helper methods
 const GenerateEmpId = (role, Nic) => {
@@ -167,5 +193,6 @@ module.exports = {
     getEmployeeById,
     updateEmployee,
     getUserProfile
+
 }
 

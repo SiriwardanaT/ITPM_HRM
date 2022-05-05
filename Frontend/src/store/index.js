@@ -5,8 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    CURRUNT_USER_OBJ : ""
   },
   mutations: {
+    ToStoreCurrentUser : (state , value) =>{
+        state.CURRUNT_USER_OBJ = value;
+    } 
   },
   actions: {
   },
