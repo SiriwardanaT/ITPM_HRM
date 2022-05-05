@@ -15,6 +15,9 @@ ins.interceptors.request.use(config =>{
 ins.interceptors.response.use(res=>{
     return res;
 },err =>{
+    if(err.response.status == 401){
+        window.location.href = "auth/login";
+    }
     return Promise.reject(err)
 })
 
