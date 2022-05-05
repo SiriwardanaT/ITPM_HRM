@@ -18,4 +18,6 @@ app.get('/profile/my',Auth.IsAuthenticated,IsGrantAccess.AccessController(['User
 
 //:PUThttp://localhost:5000/user/add
 app.put('/:id',Auth.IsAuthenticated,IsGrantAccess.AccessController(['Admin','User']),userController.updateEmployee)
+
+app.delete('/:id',userController.DeleteEmployee)
 module.exports = app;

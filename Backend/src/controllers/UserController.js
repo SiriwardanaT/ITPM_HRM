@@ -158,6 +158,17 @@ const updateEmployee = async (req , res )=>{
 //     }
 // }
 
+const DeleteEmployee = async (req, res)=>{
+     const IsDelete = await UserModal.remove({"_id":req.params.id});
+     console.log(IsDelete);
+     if(IsDelete.deletedCount == 1){
+        res.status(200).send("Delete");
+     }
+     else{
+        res.status(500).send("Not Delete")
+     }
+}
+
 //helper methods
 const GenerateEmpId = (role, Nic) => {
     if (role == "Junior Executive" || role == "Manager") {
@@ -192,7 +203,8 @@ module.exports = {
     getAllEmployees,
     getEmployeeById,
     updateEmployee,
-    getUserProfile
+    getUserProfile,
+    DeleteEmployee
 
 }
 
