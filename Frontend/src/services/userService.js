@@ -37,10 +37,11 @@ const UserAPI = {
             return res.data;
         }
         catch(err){
+            console.log("err"+err);
             return null;
         }
     },
-
+    
     updateEmployee : async (payload, id) =>{
          try{
             const res = await ins.put('user/'+id,payload);
