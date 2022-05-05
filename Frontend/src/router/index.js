@@ -38,7 +38,7 @@ const routes = [
     path:'/member',
     name :"EmployeeList",
     component:EmployeeList,
-    meta: { requiresAuth: true ,requiresAdmin :false}
+    meta: { requiresAuth: true ,requiresAdmin :true}
   },
    
  
