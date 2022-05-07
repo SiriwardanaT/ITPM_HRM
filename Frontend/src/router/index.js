@@ -8,6 +8,9 @@ import AuthHelpers from '../services/authHelpers'
 import AuthorizedView from '../views/AuthModule/AuthorizedView.vue'
 import Leave from '../views/LeaveModule/leave.vue'
 import AllLeave from '../views/LeaveModule/allLeave.vue';
+import LeaveRequest from '../views/LeaveModule/UserRequestLeave/leaveRequest.vue';
+import AllRequest from '../views/LeaveModule/UserRequestLeave/allLeaveRequest.vue';
+import ApprvReject from '../views/LeaveModule/leaveApproveReject.vue';
 
 //user module
 import EmployeeList from '../views/UserModule/EmployeeList.vue'
@@ -44,6 +47,29 @@ const routes = [
     name: 'leave',
     component:Leave,
   },
+  {
+    path: '/leaveRequest/add',
+    name: 'leaveRequest',
+    component:LeaveRequest,
+  },
+  {
+    path: '/leaveRequest',
+    name: 'leaveRequest',
+    component:AllRequest,
+  },
+
+  {
+    path: '/leaveRequest/update',
+    name: 'leaveRequest',
+    component:Leave,
+  },
+  
+  {
+    path: '/ApprReject',
+    name: 'leave',
+    component:ApprvReject,
+  },
+
   {
     path:'/member',
     name :"EmployeeList",

@@ -1,11 +1,12 @@
 <template>
   <v-container>
     <v-form ref="form">
+         <div class="form-styling">
       <v-row>
         <v-text-field
           v-model="leave.leaveName"
           :rules="leaveName_rule"
-          label="Leave Type"
+          label="Leave type"
           outlined
           dense
         ></v-text-field>
@@ -24,7 +25,6 @@
                 append-icon="mdi-alert-circle-outline"
                 solo
                 @click:append="show1 = !show1"
-                v-on="on"
                 inline
                 controls
                 outlined
@@ -51,7 +51,6 @@
                 append-icon="mdi-alert-circle-outline"
                 solo
                 @click:append="show2 = !show2"
-                v-on="on"
                 inline
                 controls
                 outlined
@@ -72,7 +71,7 @@
             v-model="leave.salaryDeduction"
             :rules="salaryDeduction_rule"
             :items="yesNo"
-            label="Is Salary Deduct"
+            label="Salary deduction"
             outlined
             dense
           ></v-select>
@@ -82,7 +81,7 @@
             v-model="leave.applicablePeople"
             :rules="applicablePeople_rule"
             :items="items"
-            label="Applicable People"
+            label="Applicable people"
             multiple
             outlined
             dense
@@ -95,7 +94,7 @@
           :rules="description_rule"
           solo
           name="input-7-4"
-          label="Montion key Description about the leave"
+          label="Mention key Description about the leave"
           outlined
           dense
         ></v-textarea>
@@ -133,6 +132,7 @@
           </v-btn>
         </v-col>
       </v-row>
+      </div>
     </v-form>
     <Loader v-if="Isloading" />
     <ErrorMsg :msg="Errormsg" v-if="ErrActive" />
@@ -206,6 +206,8 @@ export default {
       }
     },
     async updateLeave() {
+        this.$refs.form.validate();
+        if (this.$refs.form.validate()) {
       const leaveId = this.$route.query._id;
       try{
        const updateLeaveType = await ins.put(
@@ -225,7 +227,7 @@ export default {
         this.Isloading = false;
       }
      
-
+    }
      
     },
     clearData() {
@@ -248,3 +250,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.form-styling {
+  margin: 25px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+</style>
