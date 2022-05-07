@@ -17,7 +17,10 @@
           <v-btn @click="navigateToAddemployee()" class="teal lighten-2 white--text"> Add Employee </v-btn>
         </v-col>
         <v-col>
-          <v-btn @click="dowloadReport()" class="teal lighten-2 white--text"> Download PDF </v-btn>
+        <v-btn @click="dowloadReport()" style="color:black" class="dark cyan accent-2"> 
+            <v-icon dark>
+               mdi-folder-arrow-down 
+            </v-icon> Download PDF </v-btn>
         </v-col>
       </v-row>
     </div>
