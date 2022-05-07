@@ -13,16 +13,19 @@ app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({extended:true}))
 app.use(cors());
 app.use(express.static(__dirname + '/img'));
+app.use(express.static(__dirname+ '/attachFile'));
 
 //========== router import ==========  //
 const login = require('./src/routers/auth/LoginRouter')
 const userRouter = require('./src/routers/UserRouter')
 const leaveTypeRouter = require('./src/routers/LeaveTypeRoute');
+const leaveRequest = require('./src/routers/LeaveRequest')
 
 //========= router middlware usage ===== //
 app.use('/auth',login)
 app.use('/user',userRouter)
 app.use('/leaveType',leaveTypeRouter);
+app.use('/leaveRequest',leaveRequest);
 
 
 
