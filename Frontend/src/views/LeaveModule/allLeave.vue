@@ -36,7 +36,7 @@
               <td>{{ leave.description }}</td>
               <td>{{ leave.applicablePeople }}</td>
 
-              <td>
+              <td >
                 <v-icon
                   small
                   class="mr-1"
@@ -75,6 +75,7 @@ import _ from "lodash";
 import DeleteModal from "../../components/Notification/DeleteDialog.vue";
 import ErrorMsg from "../../components/Notification/Error.vue";
 import SuccessMsg from "../../components/Notification/Success.vue";
+import AuthHelper from '../../services/authHelpers';
 
 export default {
   data() {
@@ -91,6 +92,7 @@ export default {
     DeleteModal,
     ErrorMsg,
     SuccessMsg,
+    AuthHelper
   },
   methods: {
     addLeave() {

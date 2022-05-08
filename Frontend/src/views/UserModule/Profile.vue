@@ -20,7 +20,7 @@
                 <v-icon left> mdi-label </v-icon>
                {{userObj.jobRole}}
               </v-chip>
-              <v-chip class="ma-2" color="green" label text-color="white">
+              <v-chip @click="getHistory" class="ma-2" color="green" label text-color="white">
                 <v-icon left> mdi-calendar-search </v-icon>
                 Show My leaves
               </v-chip>
@@ -109,6 +109,11 @@ export default {
        },
        components:{
          Updatemodal
+       },
+       methods:{
+         async getHistory(){
+            this.$router.push({ path: "/leaveRequest/leaveHistory" });
+         }
        },
        async created(){
            const user = await UserService.getUserProfile();
