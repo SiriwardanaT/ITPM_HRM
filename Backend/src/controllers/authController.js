@@ -13,12 +13,13 @@ const login = async (req, res) => {
                 password: req.body.password
                 
             });
-            console.log(extUser.status)
             if (extUser.status) {
                 const token = jwt.sign(
                     {
                         _id: extUser._id,
                         isAdmin: extUser.isAdmin,
+                        email :extUser.email,
+                        name : extUser.employeeName
                     },
                     auth_constant.TOKEN_KEY
                 );
@@ -37,6 +38,7 @@ const login = async (req, res) => {
             res.status(statuscode.StatusCodes.NO_CONTENT).send("Employee ID or Password cannot be Null");
         }
     } catch (err) {
+        console.log(err)
         res.status(500).send(statuscode.ReasonPhrases.INTERNAL_SERVER_ERROR);
     }
 };
