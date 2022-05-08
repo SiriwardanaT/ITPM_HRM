@@ -11,13 +11,18 @@ app.post('/requestleave',Auth.IsAuthenticated,IsGrantAccess.AccessController(['U
 //:GET method to retrive data for one record
 app.get('/getDataFor',Auth.IsAuthenticated,IsGrantAccess.AccessController(['User']),leaveRequestController.getDataForOneRecord);
 
+//:GET method to get all leave requests
 app.get('/getAllRequests',Auth.IsAuthenticated,IsGrantAccess.AccessController(['Admin']),leaveRequestController.fecthAllRequests)
 
+//:GET method to get employee leave requests
 app.get('/getEmpOwnLeaves',Auth.IsAuthenticated,IsGrantAccess.AccessController(['User']),leaveRequestController.EmpOwnLeaveRequest)
 
-app.put('/updateStatus/:id',leaveRequestController.updateRequest);
-app.post('/sendMails/:empName/:empEmail/:action',emailController.sendEmails);
+//:PUT method to update status of leave
+app.put('/updateStatus/:id',Auth.IsAuthenticated,IsGrantAccess.AccessController(['Admin']),leaveRequestController.updateRequest);
 
-// app.get('/searchByDate/:date',leaveRequestController.search)
+//:POST method to send emails to employess
+app.post('/sendMails/:empName/:empEmail/:action',Auth.IsAuthenticated,IsGrantAccess.AccessController(['Admin']),emailController.sendEmails);
+
+
 
 module.exports = app;

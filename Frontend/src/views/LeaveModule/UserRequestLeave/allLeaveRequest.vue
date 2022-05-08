@@ -18,68 +18,44 @@
         <template v-slot:default>
           <thead>
             <tr>
-                <th class="text-left">Name</th>
-              <th class="text-left">email</th>
+             
               <th class="text-left">Leave Type</th>
               <th class="text-left">Number of days</th>
-                <th class="text-left"> days</th>
+              <th class="text-left">days</th>
               <th class="text-left">attachments</th>
-              <th class="text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(leaveReq, index) in latestReq" v-bind:key="index" >
-            <td>{{ leaveReq.empName}}</td>
-              <td>{{ leaveReq.empEmail}}</td>
+            <tr v-for="(leaveReq, index) in latestReq" v-bind:key="index">
               <td>{{ leaveReq.leaveType }}</td>
               <td>{{ leaveReq.noOfleaves }}</td>
               <td>{{ leaveReq.days }}</td>
               <td>{{ leaveReq.attachments }}</td>
-
-              <td>
-                <v-btn
-                  small 
-                  class="mr-1"
-                  color="orange"
-                  @click="getRowData(leave._id)"
-                >
-                Edit
-                </v-btn>
-              </td>
             </tr>
           </tbody>
         </template>
       </v-simple-table>
     </div>
-
-    <!-- <ErrorMsg :msg="Errormsg" v-if="ErrActive" />
-    <SuccessMsg :msg="Successmsg" v-if="SuccessActive" /> -->
+    <v-row>
+      <v-chip style="width: 40%" 
+        >If there is any changes Please contact HR department
+      </v-chip>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 import ins from "../../../Interceptors/axios";
 import _ from "lodash";
-// import DeleteModal from "../../components/Notification/DeleteDialog.vue";
-// import ErrorMsg from "../../components/Notification/Error.vue";
-// import SuccessMsg from "../../components/Notification/Success.vue";
 
 export default {
   data() {
     return {
       latestReq: [],
       dialogDetails: false,
-      Errormsg: "Something went wrong while adding data",
-      ErrActive: false,
-      SuccessActive: false,
-      Successmsg: "Record Successfully Deleted !",
     };
   },
-  components: {
-    // DeleteModal,
-    // ErrorMsg,
-    // SuccessMsg,
-  },
+
   methods: {
     requestLeave() {
       this.$router.push("/leaveRequest/add");
@@ -87,8 +63,7 @@ export default {
     async getRowData(id) {
       this.$router.push({ path: "/leave/update", query: { _id: id } });
     },
-    
-   
+
     async getRequestedLeave() {
       const getData = await ins.get(`/leaveRequest/getDataFor`);
       const getLeaveList = _.get(getData, "data", null);

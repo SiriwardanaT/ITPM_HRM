@@ -2,28 +2,13 @@
   <v-container>
     <v-form ref="form">
       <div class="form-styling">
+        <v-row> </v-row>
         <v-row>
           <v-col>
-            <v-text-field
-              v-model="leaveReq.empName"
-              label="Employee Name"
-              outlined
-              dense
-            ></v-text-field>
-          </v-col>
-          <v-col>
-            <v-text-field
-              v-model="leaveReq.empEmail"
-              label="Employee email"
-              outlined
-              dense
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
+            <a href="/leave">Leave Info</a>
             <v-select
               v-model="leaveReq.leaveType"
+               :rules="leaveType_rule"
               :items="type"
               label="Leave Type"
               outlined
@@ -33,6 +18,7 @@
           <v-col>
             <v-text-field
               v-model="leaveReq.noOfleaves"
+               :rules="noOfleaves_rule"
               type="number"
               label="Enter Number of leaves"
               outlined
@@ -57,6 +43,7 @@
               <template v-slot:activator="{ on, attrs }">
                 <v-combobox
                   v-model="leaveReq.days"
+                   :rules="days_rule"
                   multiple
                   chips
                   small-chips
@@ -69,6 +56,7 @@
               </template>
               <v-date-picker
                 v-model="leaveReq.days"
+                 :rules="days_rule"
                 multiple
                 no-title
                 scrollable
@@ -102,7 +90,6 @@
         <v-row>
           <v-col>
             <v-btn
-            
               class="teal lighten-2 white--text ml-17"
               @click="createRequest"
               large
@@ -110,7 +97,6 @@
             >
               Apply
             </v-btn>
-             
           </v-col>
           <v-col>
             <v-btn
@@ -132,9 +118,9 @@
 </template>
 <script>
 import ins from "../../../Interceptors/axios";
-// import Loader from "../../components/Notification/Loading.vue";
-// import ErrorMsg from "../../components/Notification/Error.vue";
-// import SuccessMsg from "../../components/Notification/Success.vue";
+import Loader from "../../../components/Notification/Loading.vue";
+import ErrorMsg from "../../../components/Notification/Error.vue";
+import SuccessMsg from "../../../components/Notification/Success.vue";
 import _ from "lodash";
 export default {
   data: () => ({
@@ -142,53 +128,57 @@ export default {
     type: ["Sick leave", "Maternity leave", "Casual leave"],
     menu: false,
     leaveReq: {
-      empName: "",
-      empEmail: "",
       leaveType: "",
       noOfleaves: "",
       days: "",
-      attachments:"",
+      attachments: "",
     },
+     leaveType_rule: [
+        (v) => !!v || "Leave type is Required",
+        
+      ],
+      noOfleaves_rule: [
+        (v) => !!v || "Annual leave numbers are required",
+      ],
+        days_rule: [
+        (v) => !!v || "Annual leave numbers are required",
+      ]
   }),
-  components:{
-// Loader,
-// ErrorMsg,
-// SuccessMsg
+  components: {
+    Loader,
+    ErrorMsg,
+    SuccessMsg
   },
   methods: {
     async createRequest() {
-     
       this.$refs.form.validate();
       if (this.$refs.form.validate()) {
-     
-    
-         
-          try {
-            const formData = new FormData();
-            formData.append("empName", this.leaveReq.empName);
-            formData.append("empEmail", this.leaveReq.empEmail);
-            formData.append("leaveType", this.leaveReq.leaveType);
-            formData.append("noOfleaves", this.leaveReq.noOfleaves);
-            formData.append("days", this.leaveReq.days);
-            formData.append("attachments", this.leaveReq.attachments);
-          
-            const addRequest = await ins.post("leaveRequest/requestleave", formData);
-            if (addRequest) {
-           
-              this.SuccessActive = true;
-             setTimeout(() => {
-                this.$router.push({ path: "/leaveRequest" });
-              }, 2000);
-            } else {
-              console.log(err);
-            }
-          } catch (err) {
-            // this.ErrActive = true;
+        try {
+          const formData = new FormData();
+
+          formData.append("leaveType", this.leaveReq.leaveType);
+          formData.append("noOfleaves", this.leaveReq.noOfleaves);
+          formData.append("days", this.leaveReq.days);
+          formData.append("attachments", this.leaveReq.attachments);
+
+          const addRequest = await ins.post(
+            "leaveRequest/requestleave",
+            formData
+          );
+          if (addRequest) {
+            this.SuccessActive = true;
+            setTimeout(() => {
+              this.$router.push({ path: "/leaveRequest" });
+            }, 2000);
+          } else {
+            console.log(err);
           }
-       
+        } catch (err) {
+          this.ErrActive = true;
+        }
       }
     },
-   
+  
   },
 };
 </script>

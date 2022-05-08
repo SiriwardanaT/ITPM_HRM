@@ -5,7 +5,7 @@
       <v-row>
         <v-col cols="9"> </v-col>
         <v-col>
-          <v-btn @click="addLeave()" class="teal lighten-2 white--text">
+          <v-btn v-if ="currentUserRole != 0" @click="addLeave()" class="teal lighten-2 white--text">
             Add New Leave Type
           </v-btn>
         </v-col>
@@ -24,7 +24,7 @@
               <th class="text-left">Salary Deduct</th>
               <th class="text-left">Description</th>
               <th class="text-left">Applicable people</th>
-              <th class="text-left">Actions</th>
+              <th v-if ="currentUserRole != 0" class="text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -35,8 +35,8 @@
               <td>{{ leave.salaryDeduction }}</td>
               <td>{{ leave.description }}</td>
               <td>{{ leave.applicablePeople }}</td>
-
-              <td >
+               
+              <td v-if ="currentUserRole != 0">
                 <v-icon
                   small
                   class="mr-1"
@@ -80,6 +80,7 @@ import AuthHelper from '../../services/authHelpers';
 export default {
   data() {
     return {
+      currentUserRole: AuthHelper.getAdminStatus(),
       leavesList: [],
       dialogDetails: false,
       Errormsg: "Something went wrong while adding data",
@@ -91,8 +92,7 @@ export default {
   components: {
     DeleteModal,
     ErrorMsg,
-    SuccessMsg,
-    AuthHelper
+    SuccessMsg
   },
   methods: {
     addLeave() {
