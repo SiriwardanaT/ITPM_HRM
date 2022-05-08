@@ -8,16 +8,11 @@
         <center>
           <h2
             class="mt-15 pb-6 black--text"
-             v-if="this.$route.path == '/leaveRequest/add'"
+             
           >
             Apply For a leave
           </h2>
-           <h2
-            class="mt-15 pb-6 black--text"
-             v-if="this.$route.path == '/leaveRequest/update'"
-          >
-            Update leave request
-          </h2>
+        
         </center>
       </v-row>
 

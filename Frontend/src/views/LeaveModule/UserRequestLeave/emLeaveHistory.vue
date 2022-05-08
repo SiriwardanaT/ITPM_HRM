@@ -25,7 +25,18 @@
               <td>{{ leave.leaveType }}</td>
               <td>{{ leave.noOfleaves }}</td>
               <td>{{ leave.days }}</td>
-              <td>{{ leave.action }}</td>
+              <td>
+                   <v-chip
+                  outlined
+                  small
+                  :color="leave.action == 'Approve' ? 'green accent-2 white--text':'red accent-2 white--text'"
+                  pill
+                  class="ma-3"
+                >
+                    <span v-if="leave.action == 'Approve'">Approved</span> 
+                  <span v-if="leave.action == 'Reject'">Reject</span>
+                </v-chip>
+               </td>
              </tr>
           </tbody>
         </template>

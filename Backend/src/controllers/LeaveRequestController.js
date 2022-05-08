@@ -1,7 +1,7 @@
 const leaveRequest = require("../modals/LeaveRequestModal");
 
 const applyLeave = async (req, res) => {
-  console.log("id",req.body.curruntUserId);
+ 
   try {
    const newRequest = new leaveRequest({
      
@@ -13,9 +13,8 @@ const applyLeave = async (req, res) => {
     
 
    })
-    // console.log("xx",req.files.attachments);
+    
     const file1 = req.files.attachments;
-    console.log("check",file1);
     const attch_url = uploadFile(file1);
     newRequest.attachments = attch_url;
  
@@ -44,7 +43,6 @@ const uploadFile =(file)=>{
 const getDataForOneRecord = async (req, res) => {
    
     const fetchOneData = await leaveRequest.find().limit(1).sort({$natural:-1});
-    console.log("check",fetchOneData)
     if (fetchOneData) {
       res.status(201).send(fetchOneData);
     } else {
@@ -62,11 +60,9 @@ const getDataForOneRecord = async (req, res) => {
   };
 
   const EmpOwnLeaveRequest = async(req,res)=>{
-    console.log("ccId",req.body.curruntUserId);
     const result = await leaveRequest.find({
       empId:req.body.curruntUserId
     });
-    console.log("result",result);
     if (result) {
       res.status(201).send(result);
     } else {
@@ -77,7 +73,6 @@ const getDataForOneRecord = async (req, res) => {
  const updateRequest = async(req,res)=>{
     const leaveReqId = req.params.id;
     const action = req.body.action;
-    console.log("ccc",action);
 
     const updateResult = await leaveRequest.updateOne(
       {_id:leaveReqId},
@@ -87,7 +82,7 @@ const getDataForOneRecord = async (req, res) => {
         }
       }
     )
-    console.log("ll",updateResult)
+
     if(updateResult){
       res.status(201).send(updateResult)
     }else{
