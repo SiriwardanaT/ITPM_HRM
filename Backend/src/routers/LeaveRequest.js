@@ -11,7 +11,7 @@ app.post('/requestleave',Auth.IsAuthenticated,IsGrantAccess.AccessController(['U
 //:GET method to retrive data for one record
 app.get('/getDataFor',Auth.IsAuthenticated,IsGrantAccess.AccessController(['User']),leaveRequestController.getDataForOneRecord);
 
-app.get('/getAllRequests',Auth.IsAuthenticated,IsGrantAccess.AccessController(['User']),leaveRequestController.fecthAllRequests)
+app.get('/getAllRequests',Auth.IsAuthenticated,IsGrantAccess.AccessController(['Admin']),leaveRequestController.fecthAllRequests)
 
 app.get('/getEmpOwnLeaves',Auth.IsAuthenticated,IsGrantAccess.AccessController(['User']),leaveRequestController.EmpOwnLeaveRequest)
 
