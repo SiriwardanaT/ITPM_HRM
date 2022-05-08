@@ -271,6 +271,9 @@ export default {
                   this.Isloading = false;
                   this.SuccessActive = true;
                   this.Successmsg = "Updated SuccessFully"
+                  setTimeout(()=>{
+                    this.$router.push('/member');
+                  },2000)
               }
               else{
                   this.ErrActive = true
@@ -298,6 +301,9 @@ export default {
             if(IsCreate){
                this.SuccessActive = true;
                this.Isloading = false;
+               setTimeout(()=>{
+                  this.$router.push('/member');
+               },1500)
             }
             else{
                 this.ErrActive = true
@@ -320,7 +326,7 @@ export default {
           this.user.birthData = Curruntuser.birthData.split('T')[0]
       }
       this.Isloading = false;
-    }, 2000);
+    }, 1500);
   },
 };
 </script>
