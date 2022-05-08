@@ -10,7 +10,7 @@
           <v-container>
             <div>
               <v-chip class="" color="success" outlined pill>
-                EID {{ user.employeeId }}
+                EID  {{ user.employeeId }}
                 <v-icon right> mdi-account-outline </v-icon>
               </v-chip>
             </div>
