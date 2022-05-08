@@ -71,6 +71,7 @@
                 depressed
                 rounded
                 text
+                @click="navigateToProfile()"
               >
                 {{admin}} Profile
               </v-btn>
@@ -112,6 +113,9 @@ export default {
     logout(){
       AuthHelpers.logout();
       this.$router.push({ path: '/auth/login' })
+    },
+    navigateToProfile(){
+       this.$router.push({ path: '/profile' })
     }
   },
   created(){
