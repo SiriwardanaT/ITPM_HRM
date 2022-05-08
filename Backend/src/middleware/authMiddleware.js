@@ -7,11 +7,13 @@ const IsAuthenticated =(req , res ,next)=>{
         if(err) res.status(401).send("Your are not Authenticated");
         else{
             req.body.curruntUserId = decode._id
+            req.body.curruntEmail = decode.email,
+            req.body.curruntName =  decode.name
             decode.isAdmin == 0 ?  req.body.curruntUserRole = constant.USER : req.body.curruntUserRole = constant.ADMIN
             next();
         }
     });
-  
+
 }
 
 
