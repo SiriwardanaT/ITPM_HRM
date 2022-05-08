@@ -5,7 +5,7 @@ import authService from '../services/authHelpers'
 
 //provice table coloum , data set and save name as argument
 const Report = {
-     genrateReport(Colums, SaveName, dataArr){
+     genrateReport(Colums, SaveName, dataArr,title){
         const columns = Colums
         const doc = new jsPDF({
           orientation: "portrait",
@@ -33,7 +33,7 @@ const Report = {
       
         doc.setLineWidth(0.01).line(0.05, 1.1, 8.0, 1.1);
         // Using autoTable plugin
-        doc.setFontSize(12).text("Monthly Active Employee List ", 0.5, 3.0);
+        doc.setFontSize(12).text(title, 0.5, 3.0);
         autoTable(doc, {
           columns,
           body: dataArr,

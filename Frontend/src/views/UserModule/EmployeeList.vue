@@ -136,7 +136,7 @@ export default {
                 { title: "status", dataKey: "status" },
                 // { title: "status", dataKey: "status" },
               ];
-              ReportService.genrateReport(columns,"ActiveEmployeeList",this.EmployeeList)
+              ReportService.genrateReport(columns,"ActiveEmployeeList",this.EmployeeList,"Monthly Active employees")
               // const doc = new jsPDF({
               //   orientation: "portrait",
               //   unit: "in",
