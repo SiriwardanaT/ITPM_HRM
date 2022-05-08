@@ -11,6 +11,7 @@ import AllLeave from '../views/LeaveModule/allLeave.vue';
 import LeaveRequest from '../views/LeaveModule/UserRequestLeave/leaveRequest.vue';
 import AllRequest from '../views/LeaveModule/UserRequestLeave/allLeaveRequest.vue';
 import ApprvReject from '../views/LeaveModule/leaveApproveReject.vue';
+import EmpLeaves from '../views/LeaveModule/UserRequestLeave/emLeaveHistory.vue'
 
 //user module
 import EmployeeList from '../views/UserModule/EmployeeList.vue'
@@ -35,39 +36,52 @@ const routes = [
     path: '/leave',
     name: 'leave',
     component:AllLeave,
+    meta: { requiresAuth: true}
    
   },
   {
     path: '/leave/add',
     name: 'leave',
     component:Leave,
+    meta: { requiresAuth: true ,requiresAdmin :true}
   },
   {
     path: '/leave/update',
     name: 'leave',
     component:Leave,
+    meta: { requiresAuth: true ,requiresAdmin :true}
   },
   {
     path: '/leaveRequest/add',
     name: 'leaveRequest',
     component:LeaveRequest,
+    meta: { requiresAuth: true ,requiresAdmin :false}
   },
   {
     path: '/leaveRequest',
     name: 'leaveRequest',
     component:AllRequest,
+    meta: { requiresAuth: true ,requiresAdmin :false}
   },
 
   {
     path: '/leaveRequest/update',
     name: 'leaveRequest',
     component:Leave,
+    meta: { requiresAuth: true ,requiresAdmin :false}
+  },
+  {
+    path: '/leaveRequest/leaveHistory',
+    name: 'leaveRequest',
+    component:EmpLeaves,
+    meta: { requiresAuth: true ,requiresAdmin :false}
   },
   
   {
     path: '/ApprReject',
     name: 'leave',
     component:ApprvReject,
+    meta: { requiresAuth: true ,requiresAdmin :true}
   },
 
   {

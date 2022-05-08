@@ -102,23 +102,15 @@
         <v-row>
           <v-col>
             <v-btn
-              v-if="this.$route.path == '/leaveRequest/add'"
+            
               class="teal lighten-2 white--text ml-17"
-              @click="createRequest()"
+              @click="createRequest"
               large
               style="width: 60%"
             >
               Apply
             </v-btn>
-              <v-btn
-              v-if="this.$route.path == '/leaveRequest/update'"
-              class="teal lighten-2 white--text ml-17"
-              @click="updateRequest()"
-              large
-              style="width: 60%"
-            >
-              Update Request
-            </v-btn>
+             
           </v-col>
           <v-col>
             <v-btn
@@ -169,7 +161,7 @@ export default {
       this.$refs.form.validate();
       if (this.$refs.form.validate()) {
      
-        if (this.$route.path == "/leaveRequest/add") {
+    
          
           try {
             const formData = new FormData();
@@ -193,12 +185,10 @@ export default {
           } catch (err) {
             // this.ErrActive = true;
           }
-        }
+       
       }
     },
-    async updateRequest(){
-      
-    }
+   
   },
 };
 </script>

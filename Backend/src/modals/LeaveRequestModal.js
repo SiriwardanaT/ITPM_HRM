@@ -2,14 +2,6 @@ const mongoose  = require('mongoose')
 
 const LeaveRequest = new mongoose.Schema({
     
-    empName:{
-        type:String,
-        required:true
-    },
-   empEmail :{
-       type:String,
-       required:true
-    },
     leaveType:{
         type:String,
         required:true
@@ -26,6 +18,14 @@ const LeaveRequest = new mongoose.Schema({
     attachments:{
         type:String
         
+    },
+    action:{
+        type:String,
+        default:"Pending"
+    },
+    empId:{
+        type: mongoose.Schema.Types.ObjectId,
+         ref: 'User'
     }
    
 })

@@ -2,19 +2,21 @@ const express = require("express");
 const app = express.Router();
 const leaveRequestController = require('../controllers/LeaveRequestController');
 const emailController = require('../controllers/emailController');
+const Auth = require('../middleware/authMiddleware')
+const IsGrantAccess = require('../middleware/AccessControll')
 
 //:POST method
-app.post('/requestleave',leaveRequestController.applyLeave);
+app.post('/requestleave',Auth.IsAuthenticated,IsGrantAccess.AccessController(['User']),leaveRequestController.applyLeave);
 
 //:GET method to retrive data for one record
-app.get('/getDataFor',leaveRequestController.getDataForOneRecord);
+app.get('/getDataFor',Auth.IsAuthenticated,IsGrantAccess.AccessController(['User']),leaveRequestController.getDataForOneRecord);
 
-app.get('/getAllRequests',leaveRequestController.fecthAllRequests)
+app.get('/getAllRequests',Auth.IsAuthenticated,IsGrantAccess.AccessController(['User']),leaveRequestController.fecthAllRequests)
 
-app.delete('/deleteApproved/:id',leaveRequestController.deleteApproveRequests)
+app.get('/getEmpOwnLeaves',Auth.IsAuthenticated,IsGrantAccess.AccessController(['User']),leaveRequestController.EmpOwnLeaveRequest)
 
-
-app.post('/sendMails/:empName/:empEmail',emailController.sendEmails);
+app.put('/updateStatus/:id',leaveRequestController.updateRequest);
+app.post('/sendMails/:empName/:empEmail/:action',emailController.sendEmails);
 
 // app.get('/searchByDate/:date',leaveRequestController.search)
 

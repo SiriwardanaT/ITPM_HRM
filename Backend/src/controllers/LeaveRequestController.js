@@ -1,41 +1,12 @@
 const leaveRequest = require("../modals/LeaveRequestModal");
-const nodemailer = require('nodemailer');
 
-// const uploadFile = async (req, res) => {
-//   try {
-//     if (req.files) {
-//       res.send({
-//         status: false,
-//         message: "No file Uploaded",
-//       });
-//     } else {
-//       let attachments = req.files.attachments;
-
-//       attachments.mv("./uploads/" + attachments.name);
-
-//       res.send({
-//         status: true,
-//         message: "File is uploaded",
-//         data: {
-//           name: attachments.name,
-//           mimetype: attachments.mimetype,
-//           size: attachments.size,
-//         },
-//       });
-//     }
-//   } catch (err) {
-//     res.status(err).send(err);
-//   }
-// };
 const applyLeave = async (req, res) => {
-  // const file1 = req.files.attachments;
-  // console.log("file1",file1);
-  // file1.mv(`./file/`+""+file1.name)
+  console.log("id",req.body.curruntUserId);
   try {
    const newRequest = new leaveRequest({
-     empName : req.body.empName,
-     empEmail : req.body.empEmail,
-     leaveType:req.body.leaveType,
+     
+    empId:req.body.curruntUserId,
+    leaveType:req.body.leaveType,
      noOfleaves : req.body.noOfleaves,
      days : req.body.days,
      attachments :""
@@ -82,7 +53,7 @@ const getDataForOneRecord = async (req, res) => {
   };
 
   const fecthAllRequests = async (req, res) => {
-    const fetchResult = await leaveRequest.find();
+    const fetchResult = await leaveRequest.find().populate("empId");
     if (fetchResult) {
       res.status(201).send(fetchResult);
     } else {
@@ -90,17 +61,40 @@ const getDataForOneRecord = async (req, res) => {
     }
   };
 
-  const deleteApproveRequests = async(req,res)=>{
-    const leaveReqId = req.params.id;
-    const deleteResult = await leaveRequest.findByIdAndDelete(leaveReqId);
-  
-    if (deleteResult) {
-      res.status(201).send("Successfully Deleted!");
+  const EmpOwnLeaveRequest = async(req,res)=>{
+    console.log("ccId",req.body.curruntUserId);
+    const result = await leaveRequest.find({
+      empId:req.body.curruntUserId
+    });
+    console.log("result",result);
+    if (result) {
+      res.status(201).send(result);
     } else {
-      res.status(502).send("Something went wrong while deleting");
+      res.status(502).send("Data fetching error");
+    } 
+  }
+
+ const updateRequest = async(req,res)=>{
+    const leaveReqId = req.params.id;
+    const action = req.body.action;
+    console.log("ccc",action);
+
+    const updateResult = await leaveRequest.updateOne(
+      {_id:leaveReqId},
+      {
+        $set:{
+          action
+        }
+      }
+    )
+    console.log("ll",updateResult)
+    if(updateResult){
+      res.status(201).send(updateResult)
+    }else{
+      res.status(502).send("error");
     }
   }
-  
+
 
   const search= async(req,res)=>{
      const date = req.params.date;
@@ -117,7 +111,8 @@ module.exports = {
   applyLeave,
   getDataForOneRecord,
   fecthAllRequests,
-  deleteApproveRequests,
-  search
+  search,
+  updateRequest,
+  EmpOwnLeaveRequest
 
 };
