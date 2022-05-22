@@ -12,6 +12,7 @@ import LeaveRequest from '../views/LeaveModule/UserRequestLeave/leaveRequest.vue
 import AllRequest from '../views/LeaveModule/UserRequestLeave/allLeaveRequest.vue';
 import ApprvReject from '../views/LeaveModule/leaveApproveReject.vue';
 import EmpLeaves from '../views/LeaveModule/UserRequestLeave/emLeaveHistory.vue'
+import Holiday from '../views/HolidayModule/holiday.vue'
 
 //user module
 import EmployeeList from '../views/UserModule/EmployeeList.vue'
@@ -102,6 +103,12 @@ const routes = [
     path:'/profile',
     component:Profile,
     meta: { requiresAuth: true ,requiresAdmin :false}
+  },
+  {
+    path: '/holiday',
+    name: 'holiday',
+    component:Holiday,
+  
   },
   {
     path:'/error/401',

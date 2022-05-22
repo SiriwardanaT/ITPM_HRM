@@ -29,12 +29,15 @@
                    <v-chip
                   outlined
                   small
-                  :color="leave.action == 'Approve' ? 'green accent-2 white--text':'red accent-2 white--text'"
+                  :color="leave.action == 'Approve' ? 'green accent-2 white--text': leave.action == 'Reject'
+                        ? 'red darken-1 accent-2 white--text'
+                        : 'orange darken-1 accent-2 white--text'"
                   pill
                   class="ma-3"
                 >
-                    <span v-if="leave.action == 'Approve'">Approved</span> 
-                  <span v-if="leave.action == 'Reject'">Reject</span>
+                   <span v-if="leave.action == 'Approve'">Approved</span>
+                    <span v-if="leave.action == 'Reject'">Reject</span>
+                    <span v-if="leave.action == 'Pending'">Pending</span>
                 </v-chip>
                </td>
              </tr>
@@ -52,6 +55,7 @@ export default {
   data() {
     return {
       Req: [],
+      
      
     };
   },
@@ -62,9 +66,9 @@ export default {
     async getLeaveHistory() {
     
       const getData = await ins.get("leaveRequest/getEmpOwnLeaves");
-      console.log("vv",getData);
+     
       const getLeaveList = _.get(getData, "data", null);
-      console.log("dd",getLeaveList);
+    
       this.Req = getLeaveList;
     },
   },

@@ -6,7 +6,7 @@ export const item = [
       { title: "Projects", icon: "mdi-clipboard-text-outline",to:'/projects' },
       { title: "Payroll", icon: "mdi-currency-usd" ,to:'/payroll'},
       { title: "Reports", icon: "mdi-chart-areaspline",to:'/reports' },
-      { title: "Holidays", icon: "mdi-calendar-heart" ,to:'/holidays' },
+      { title: "Holidays", icon: "mdi-calendar-heart" ,to:'/holiday' },
       { title: "Extra Configurations", icon: "mdi-cog-outline" ,to:'/config'},
 ]
 export const userItems = [
@@ -16,7 +16,7 @@ export const userItems = [
     { title: "Project", icon: "mdi-clipboard-text-outline",to:'/projects' },
     { title: "Payroll", icon: "mdi-currency-usd" ,to:'/payroll'},
     { title: "Reports", icon: "mdi-chart-areaspline",to:'/reports' },
-    { title: "Holidays", icon: "mdi-calendar-heart" ,to:'/holidays' },
+    { title: "Holidays", icon: "mdi-calendar-heart" ,to:'/holiday' },
     { title: "Extra Configurations", icon: "mdi-cog-outline" ,to:'/config'},
 ]
 

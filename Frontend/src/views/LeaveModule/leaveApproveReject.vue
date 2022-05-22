@@ -3,14 +3,14 @@
     <div class="top-section">
       <h2>Leave Requests</h2>
       <v-row>
-          <v-col cols="9">
-          <div class="mt-5 search-bar" style="width:50%">
-               <v-text-field
-               v-model="searchKey"
-             prepend-inner-icon="mdi-calendar-search"
-            label="Search Approve emails"
-            solo
-          ></v-text-field>
+        <v-col cols="9">
+          <div class="mt-5 search-bar" style="width: 50%">
+            <v-text-field
+              v-model="searchKey"
+              prepend-inner-icon="mdi-calendar-search"
+              label="Search Approve emails"
+              solo
+            ></v-text-field>
           </div>
         </v-col>
         <v-col>
@@ -19,13 +19,15 @@
               @click="GenerateReport"
               class="teal lighten-2 white--text mb-4"
             >
-              Generate a Report
+              Generate Leave Report
             </v-btn>
           </v-row>
           <v-row>
-            <v-btn  @click="navigateToLeaveType" class="teal lighten-2 white--text">
-             
-              Add New Leave Type
+            <v-btn
+              @click="navigateToLeaveType"
+              class="teal lighten-2 white--text"
+            >
+             Leave Types
             </v-btn>
           </v-row>
         </v-col>
@@ -47,27 +49,37 @@
               </tr>
             </thead>
             <tbody>
-                <tr  v-if="fliterApprovedLeaves.length == 0"><td >No Approved leaves found</td></tr>
-              <tr v-for="(appReq, index) in fliterApprovedLeaves" v-bind:key="index">
+              <tr v-if="fliterApprovedLeaves.length == 0">
+                <td>No Requests found</td>
+              </tr>
+              <tr
+                v-for="(appReq, index) in fliterApprovedLeaves"
+                v-bind:key="index"
+              >
                 <td>{{ appReq.empId.employeeName }}</td>
                 <td>{{ appReq.empId.email }}</td>
                 <td>{{ appReq.leaveType }}</td>
                 <td>{{ appReq.noOfleaves }}</td>
                 <td>{{ appReq.days }}</td>
                 <td>
-                 
-                   <v-chip
-                  outlined
-                  small
-                  :color="appReq.action == 'Approve' ? 'green accent-2 white--text':'red accent-2 white--text'"
-                  pill
-                  class="ma-3"
-                >
-                    <span v-if="appReq.action == 'Approve'">Approved</span> 
-                  <span v-if="appReq.action == 'Reject'">Reject</span>
+                  <v-chip
+                    outlined
+                    small
+                    :color="
+                      appReq.action == 'Approve'
+                        ? 'green darken-1 accent-2 white--text'
+                        : appReq.action == 'Reject'
+                        ? 'red darken-1 accent-2 white--text'
+                        : 'orange darken-1 accent-2 white--text'
+                    "
+                    pill
+                    class="ma-3"
+                  >
+                    <span v-if="appReq.action == 'Approve'">Approved</span>
+                    <span v-if="appReq.action == 'Reject'">Reject</span>
                     <span v-if="appReq.action == 'Pending'">Pending</span>
-                </v-chip>
-               </td>
+                  </v-chip>
+                </td>
                 <td>
                   <v-select
                     v-model="selectedAction"
@@ -79,8 +91,7 @@
                         appReq._id
                       )
                     "
-                    label="Pending"
-                    color="red"
+                    label="action"
                     dense
                     solo
                   ></v-select>
@@ -96,14 +107,16 @@
 </template>
 <script>
 // import moment from "moment";
+import _ from "lodash";
 import ins from "../../Interceptors/axios";
 import ReportService from "../../services/ReportGenerateService";
 import SuccessMsg from "../../components/Notification/Success.vue";
 export default {
   data: () => ({
-    searchKey:"",
+    searchKey: "",
+    getVal: "",
     Req: [],
-    items: ["Approve", "Pending", "Reject"],
+    items: ["Approve", "Reject"],
     SuccessActive: false,
     Successmsg: "Email is successfully send to the employee",
   }),
@@ -111,8 +124,8 @@ export default {
     SuccessMsg,
   },
   methods: {
-    navigateToLeaveType(){
-      this.$router.push({ path: "/leave/add" });
+    navigateToLeaveType() {
+      this.$router.push({ path: "/leave" });
     },
     async onChange(empName, empEmail, id) {
       const action = this.selectedAction;
@@ -120,59 +133,68 @@ export default {
       const updatRequest = await ins.put(`leaveRequest/updateStatus/${id}`, {
         action: action,
       });
-      if(updatRequest != null){
-         this.SuccessActive = true;
-      const result = await ins.post(
-        `leaveRequest/sendMails/${empName}/${empEmail}/${action}`
-      );
-       if(result != null){
 
-       }
+      const e = _.has(updatRequest, "config.data");
+
+      if (e == true) {
+        try {
+          //  this.SuccessActive = true;
+          this.$router.go();
+
+          const result = await ins.post(
+            `leaveRequest/sendMails/${empName}/${empEmail}/${action}`
+          );
+         
+        } catch (err) {
+          console.log(err);
+        }
       }
-     
-     
     },
     async getPendingRequests() {
       const getData = await ins.get("/leaveRequest/getAllRequests");
+      console.log("check", getData);
       const getLeaveReqList = _.get(getData, "data", null);
       this.Req = getLeaveReqList;
     },
     async GenerateReport() {
-         const customizedLeaveRequests =[];
-         this.Req.forEach(element => {
-           customizedLeaveRequests.push({
-                "employeeName":element.empId.employeeName,
-                "email":element.empId.email,
-                "type":element.leaveType,
-                "days":element.days
-           })
-         });
-      
+      const customizedLeaveRequests = [];
+      this.Req.forEach((element) => {
+        customizedLeaveRequests.push({
+          employeeName: element.empId.employeeName,
+          email: element.empId.email,
+          type: element.leaveType,
+          days: element.days,
+          action:element.action
+        });
+      });
+
       const columns = [
-        { title: "EmployeeName", dataKey:"employeeName" },
+        { title: "EmployeeName", dataKey: "employeeName" },
         { title: "email", dataKey: "email" },
         { title: "Type", dataKey: "type" },
         { title: "Days", dataKey: "days" },
-
-      
+        {title:"Status",dataKey:"action"}
       ];
-       ReportService.genrateReport(columns,"Leave Report",customizedLeaveRequests,"Report of ")
+      ReportService.genrateReport(
+        columns,
+        "Leave Report",
+        customizedLeaveRequests,
+        "Report of Leave Requests with status"
+      );
     },
-   
   },
-   computed:{
-        //search filters
-        fliterApprovedLeaves(){
-            this.dialogDetails = false;
-            return this.Req.filter((l)=>{
-                 return l.leaveType.match(this.searchKey)
-             });
-        }
+  computed: {
+    //search filters
+    fliterApprovedLeaves() {
+      this.dialogDetails = false;
+      return this.Req.filter((l) => {
+        return l.action.match(this.searchKey);
+      });
     },
+  },
   mounted() {
     this.getPendingRequests();
   },
-  
 };
 </script>
 <style scoped>
