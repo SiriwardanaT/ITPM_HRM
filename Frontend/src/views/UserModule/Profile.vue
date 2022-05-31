@@ -41,12 +41,12 @@
                 <template v-slot:default>
                   <thead>
                     <tr>
-                      <th class="text-left">Name</th>
-                      <th class="text-left">Email</th>
-                      <th class="text-left">phone</th>
-                      <th class="text-left">NIC</th>
-                      <th class="text-left">Address</th>
-                      <th class="text-left">Gender</th>
+                      <th class="text-left" scope="col">Name</th>
+                      <th class="text-left" scope="col">Email</th>
+                      <th class="text-left" scope="col">phone</th>
+                      <th class="text-left" scope="col">NIC</th>
+                      <th class="text-left" scope="col">Address</th>
+                      <th class="text-left" scope="col">Gender</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -61,14 +61,14 @@
                   </tbody>
                 </template>
               </v-simple-table>
-              <div class="" style="margin-top: 50px">
+              <div class=""  style="margin-top: 50px">
                 <h3>Job Role Information</h3>
               </div>
               <v-simple-table>
                 <template v-slot:default>
                   <thead>
                     <tr>
-                      <th class="text-left">Current Job Role</th>
+                      <th class="text-left" scope="col">Current Job Role</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -125,5 +125,3 @@ export default {
 };
 </script>
 
-<style>
-</style>

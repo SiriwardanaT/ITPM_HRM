@@ -3,7 +3,7 @@
     <!-- left side view -->
     <v-row>
       <v-col cols="4" class="cyan" style="height: 100vh">
-        <center><h1 id="heading" class="mt-6 white--text">HRM</h1></center>
+        <h1 id="heading" class="mt-6 white--text">HRM</h1>
         <img
           :src="img_log"
           alt=""
@@ -16,7 +16,7 @@
         <div class="error-msg" v-if="true">
           <ErrorMsg :msg="msg" v-if="isActive" />
         </div>
-        <center><h1 class="mt-15 black--text">LOGIN</h1></center>
+        <h1 class="mt-15 black--text">LOGIN</h1>
         <div style="width: 50%; margin-left: 25%; margin-top: 5%">
           <v-container>
             <v-form class="login-form" ref="form">

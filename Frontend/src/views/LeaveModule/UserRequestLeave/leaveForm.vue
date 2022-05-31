@@ -5,7 +5,7 @@
         <v-row> </v-row>
         <v-row>
           <v-col>
-            <a href="/leave">Leave Info</a>
+            <a href="/leave">Check Leave Info</a>
             <v-select
               v-model="leaveReq.leaveType"
                :rules="leaveType_rule"
@@ -16,20 +16,18 @@
             ></v-select>
           </v-col>
           <v-col>
+            <span>Enter Number of leaves</span>
             <v-text-field
               v-model="leaveReq.noOfleaves"
                :rules="noOfleaves_rule"
               type="number"
-              label="Enter Number of leaves"
               outlined
               dense
             ></v-text-field>
           </v-col>
         </v-row>
         <v-row>
-          <!-- <v-col cols="15" sm="6">
-            <v-date-picker v-model="dates" multiple></v-date-picker>
-          </v-col> -->
+        
           <v-col cols="15" sm="6">
             <v-menu
               ref="menu"
@@ -73,18 +71,16 @@
           </v-col>
 
           <v-col>
-            <v-tooltip v-model="show1" top>
-              <template v-slot:activator="{ on }">
+             <span>Upload any document relevent to the request</span>
                 <v-file-input
                   v-model="leaveReq.attachments"
-                  label="Upload any document relevent to the request"
-                  @click:append="show1 = !show1"
-                  append-icon="mdi-alert-circle-outline"
+               :rules=" attachments_rule"
+                
+                
                   outlined
                   dense
                 ></v-file-input>
-              </template>
-            </v-tooltip>
+             
           </v-col>
         </v-row>
         <v-row>
@@ -121,7 +117,7 @@ import ins from "../../../Interceptors/axios";
 import Loader from "../../../components/Notification/Loading.vue";
 import ErrorMsg from "../../../components/Notification/Error.vue";
 import SuccessMsg from "../../../components/Notification/Success.vue";
-import _ from "lodash";
+
 export default {
   data: () => ({
     dates: ["2018-09-15", "2018-09-20"],
@@ -130,7 +126,7 @@ export default {
     leaveReq: {
       leaveType: "",
       noOfleaves: "",
-      days: "",
+
       attachments: "",
     },
      leaveType_rule: [
@@ -142,7 +138,11 @@ export default {
       ],
         days_rule: [
         (v) => !!v || "Annual leave numbers are required",
-      ]
+      (v) => (v && v.length > 1) || "Please requested leave days",
+      ],
+        attachments_rule: [
+        (v) => !!v || "Required",
+      ],
   }),
   components: {
     Loader,
@@ -178,8 +178,15 @@ export default {
         }
       }
     },
+      clearData() {
+      (this.leaveReq.leaveType = ""),
+        (this.leaveReq.noOfleaves = ""),
+        (this.leaveReq.days = ""),
+        (this.leaveReq.attachments = "");
+       
+    }
   
-  },
+  }
 };
 </script>
 <style scoped>

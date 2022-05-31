@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="top-section">
-      <h2>Leave Types</h2>
+      <h2>Requested Leave</h2>
       <v-row>
         <v-col cols="9"> </v-col>
         <v-col>
@@ -19,10 +19,10 @@
           <thead>
             <tr>
              
-              <th class="text-left">Leave Type</th>
-              <th class="text-left">Number of days</th>
-              <th class="text-left">days</th>
-              <th class="text-left">attachments</th>
+              <th class="text-left" scope="col">Leave Type</th>
+              <th class="text-left" scope="col">Number of days</th>
+              <th class="text-left" scope="col">days</th>
+              <th class="text-left" scope="col">attachments</th>
             </tr>
           </thead>
           <tbody>
@@ -37,9 +37,16 @@
       </v-simple-table>
     </div>
     <v-row>
-      <v-chip style="width: 40%" 
-        >If there is any changes Please contact HR department
-      </v-chip>
+     <v-alert
+     class="alert"
+      color="#26A69A"
+      dark
+      icon="mdi-alert-circle-outline"
+      border="left"
+      prominent
+    >
+      This is your Requested Leave Deatils. If there are any concerns Please let us know!!. If you want to change details about this above request Donot hesitate to contact HR department.
+    </v-alert>
     </v-row>
   </v-container>
 </template>
@@ -83,5 +90,12 @@ export default {
 }
 .top-section {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.alert{
+ 
+  position:absolute;
+  top:60%;
+  
+ 
 }
 </style>

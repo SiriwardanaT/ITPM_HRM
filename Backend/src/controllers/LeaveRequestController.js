@@ -1,7 +1,7 @@
 const leaveRequest = require("../modals/LeaveRequestModal");
 
 const applyLeave = async (req, res) => {
- 
+ console.log("id",req.body.curruntUserId);
   try {
    const newRequest = new leaveRequest({
      
@@ -52,6 +52,7 @@ const getDataForOneRecord = async (req, res) => {
 
   const fecthAllRequests = async (req, res) => {
     const fetchResult = await leaveRequest.find().populate("empId");
+    console.log("fetch",fetchResult);
     if (fetchResult) {
       res.status(201).send(fetchResult);
     } else {

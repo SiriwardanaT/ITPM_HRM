@@ -5,7 +5,11 @@
       <v-row>
         <v-col cols="9"> </v-col>
         <v-col>
-          <v-btn v-if ="currentUserRole != 0" @click="addLeave()" class="teal lighten-2 white--text">
+          <v-btn
+            v-if="currentUserRole != 0"
+            @click="addLeave()"
+            class="teal lighten-2 white--text"
+          >
             Add New Leave Type
           </v-btn>
         </v-col>
@@ -18,13 +22,13 @@
         <template v-slot:default>
           <thead>
             <tr>
-              <th class="text-left">Leave Name</th>
-              <th class="text-left">Annual leaves</th>
-              <th class="text-left">Monthly leaves</th>
-              <th class="text-left">Salary Deduct</th>
-              <th class="text-left">Description</th>
-              <th class="text-left">Applicable people</th>
-              <th v-if ="currentUserRole != 0" class="text-left">Actions</th>
+              <th class="text-left" scope="col">Leave Name</th>
+              <th class="text-left" scope="col">Annual leaves</th>
+              <th class="text-left" scope="col">Monthly leaves</th>
+              <th class="text-left" scope="col">Salary Deduct</th>
+              <th class="text-left" scope="col">Description</th>
+              <th class="text-left" scope="col">Applicable people</th>
+              <th v-if="currentUserRole != 0" scope="col" class="text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -35,8 +39,8 @@
               <td>{{ leave.salaryDeduction }}</td>
               <td>{{ leave.description }}</td>
               <td>{{ leave.applicablePeople }}</td>
-               
-              <td v-if ="currentUserRole != 0">
+
+              <td v-if="currentUserRole != 0">
                 <v-icon
                   small
                   class="mr-1"
@@ -47,7 +51,7 @@
                 </v-icon>
                 <v-icon
                   small
-                  class="ml-3"
+                  class="ml-4"
                   color="red"
                   @click="getDeleteDialog(leave._id)"
                 >
@@ -75,7 +79,7 @@ import _ from "lodash";
 import DeleteModal from "../../components/Notification/DeleteDialog.vue";
 import ErrorMsg from "../../components/Notification/Error.vue";
 import SuccessMsg from "../../components/Notification/Success.vue";
-import AuthHelper from '../../services/authHelpers';
+import AuthHelper from "../../services/authHelpers";
 
 export default {
   data() {
@@ -92,7 +96,7 @@ export default {
   components: {
     DeleteModal,
     ErrorMsg,
-    SuccessMsg
+    SuccessMsg,
   },
   methods: {
     addLeave() {
