@@ -186,7 +186,7 @@ import Loader from "../../components/Notification/Loading.vue";
 import UserAPI from "../../services/userService"
 import ErrorMsg from "../../components/Notification/Error.vue"
 import SuccessMsg from "../../components/Notification/Success.vue"
-import axios from 'axios';
+
 export default {
   data() {
     return {

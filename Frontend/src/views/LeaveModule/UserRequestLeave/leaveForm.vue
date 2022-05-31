@@ -27,9 +27,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <!-- <v-col cols="15" sm="6">
-            <v-date-picker v-model="dates" multiple></v-date-picker>
-          </v-col> -->
+        
           <v-col cols="15" sm="6">
             <v-menu
               ref="menu"
@@ -119,7 +117,7 @@ import ins from "../../../Interceptors/axios";
 import Loader from "../../../components/Notification/Loading.vue";
 import ErrorMsg from "../../../components/Notification/Error.vue";
 import SuccessMsg from "../../../components/Notification/Success.vue";
-import _ from "lodash";
+
 export default {
   data: () => ({
     dates: ["2018-09-15", "2018-09-20"],

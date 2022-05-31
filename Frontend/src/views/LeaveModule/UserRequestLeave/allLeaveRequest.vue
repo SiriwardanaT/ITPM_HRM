@@ -19,10 +19,10 @@
           <thead>
             <tr>
              
-              <th class="text-left">Leave Type</th>
-              <th class="text-left">Number of days</th>
-              <th class="text-left">days</th>
-              <th class="text-left">attachments</th>
+              <th class="text-left" scope="col">Leave Type</th>
+              <th class="text-left" scope="col">Number of days</th>
+              <th class="text-left" scope="col">days</th>
+              <th class="text-left" scope="col">attachments</th>
             </tr>
           </thead>
           <tbody>

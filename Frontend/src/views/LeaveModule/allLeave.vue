@@ -22,13 +22,13 @@
         <template v-slot:default>
           <thead>
             <tr>
-              <th class="text-left">Leave Name</th>
-              <th class="text-left">Annual leaves</th>
-              <th class="text-left">Monthly leaves</th>
-              <th class="text-left">Salary Deduct</th>
-              <th class="text-left">Description</th>
-              <th class="text-left">Applicable people</th>
-              <th v-if="currentUserRole != 0" class="text-left">Actions</th>
+              <th class="text-left" scope="col">Leave Name</th>
+              <th class="text-left" scope="col">Annual leaves</th>
+              <th class="text-left" scope="col">Monthly leaves</th>
+              <th class="text-left" scope="col">Salary Deduct</th>
+              <th class="text-left" scope="col">Description</th>
+              <th class="text-left" scope="col">Applicable people</th>
+              <th v-if="currentUserRole != 0" scope="col" class="text-left">Actions</th>
             </tr>
           </thead>
           <tbody>

@@ -13,10 +13,10 @@
         <template v-slot:default>
           <thead>
             <tr>
-              <th class="text-left">Leave Type</th>
-              <th class="text-left">No of Leaves</th>
-              <th class="text-left">Requested Leave Dates</th>
-              <th class="text-left">Status</th>
+              <th class="text-left" scope="col">Leave Type</th>
+              <th class="text-left" scope="col">No of Leaves</th>
+              <th class="text-left" scope="col">Requested Leave Dates</th>
+              <th class="text-left" scope="col">Status</th>
              
             </tr>
           </thead>

@@ -39,13 +39,13 @@
           <template v-slot:default>
             <thead>
               <tr>
-                <th class="text-left">Employee Name</th>
-                <th class="text-left">Emplyee Email</th>
-                <th class="text-left">Type</th>
-                <th class="text-left">Numbers</th>
-                <th class="text-left">Leave Dates</th>
-                <th class="text-left">Action</th>
-                <th class="text-left">Permission</th>
+                <th class="text-left" scope="col">Employee Name</th>
+                <th class="text-left" scope="col">Emplyee Email</th>
+                <th class="text-left" scope="col">Type</th>
+                <th class="text-left" scope="col">Numbers</th>
+                <th class="text-left" scope="col">Leave Dates</th>
+                <th class="text-left" scope="col">Action</th>
+                <th class="text-left" scope="col">Permission</th>
               </tr>
             </thead>
             <tbody>
@@ -136,19 +136,18 @@ export default {
 
       const e = _.has(updatRequest, "config.data");
 
-      if (e == true) {
+     
         try {
-          //  this.SuccessActive = true;
+          
           this.$router.go();
-
-          const result = await ins.post(
+ await ins.post(
             `leaveRequest/sendMails/${empName}/${empEmail}/${action}`
           );
          
         } catch (err) {
           console.log(err);
         }
-      }
+     
     },
     async getPendingRequests() {
       const getData = await ins.get("/leaveRequest/getAllRequests");

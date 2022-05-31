@@ -30,12 +30,12 @@
         <template v-slot:default>
           <thead>
             <tr>
-              <th class="text-left" >Employee Name</th>
-              <th class="text-left" >Email</th>
-              <th class="text-left" >phone</th>
-              <th class="text-left" >Gender</th>
-              <th class="text-left">Status</th>
-              <th class="text-left">Actions</th>
+              <th class="text-left" scope="col" >Employee Name</th>
+              <th class="text-left" scope="col" >Email</th>
+              <th class="text-left" scope="col" >phone</th>
+              <th class="text-left" scope="col" >Gender</th>
+              <th class="text-left" scope="col">Status</th>
+              <th class="text-left" scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>

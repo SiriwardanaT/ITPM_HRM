@@ -2,22 +2,22 @@
   <div>
     <v-container>
       <v-row>
-        <center>
+     
           <h2
             class="mt-15 pb-6 black--text"
             v-if="this.$route.path == '/leave/update'"
           >
             Update Leave Type
           </h2>
-        </center>
-        <center>
+        
+        
           <h2
             class="mt-15 pb-6 black--text"
             v-if="this.$route.path == '/leave/add'"
           >
             Add Leave Type
           </h2>
-        </center>
+       
       </v-row>
 
       <v-row>
@@ -39,4 +39,3 @@ export default {
 };
 </script>
 
-<style></style>

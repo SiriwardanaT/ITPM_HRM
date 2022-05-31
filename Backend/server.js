@@ -32,7 +32,7 @@ app.use('/leaveRequest',leaveRequest);
 //=========== DATABASE CONNECTION ===== //
 
 mongoose.connect(process.env.DB_Cloud)
-.then((connect =>{
+.then((_connect =>{
     console.log(" Database connected Success ")
 })).catch(err =>{
     console.log(err)
