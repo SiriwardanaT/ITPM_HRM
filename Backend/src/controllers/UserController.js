@@ -2,6 +2,7 @@ const userModel = require('../modals/UserModal')
 const AuthConstant = require('../constants/auth')
 const UserModal = require('../modals/UserModal')
 const http_cods = require('http-status-codes')
+const nodemailer = require('nodemailer');
 //add employee 
 const addEmployee = async (req, res) => {
 
@@ -29,7 +30,14 @@ const addEmployee = async (req, res) => {
             const createUser = await userModel.create(User)
 
             if (createUser) {
-                res.status(http_cods.StatusCodes.CREATED).send(createUser)
+                const IsSend = sendmail(User.email,User.employeeName,User.password)
+                if(IsSend){
+                    res.status(http_cods.StatusCodes.CREATED).send(createUser)
+                }
+                else{
+                    res.status(http_cods.StatusCodes.OK).send("User Created But Email not sent")
+                }
+               
             }
             else {
                 res.status(http_cods.StatusCodes.INTERNAL_SERVER_ERROR).send("Something went wrong")
@@ -131,32 +139,7 @@ const updateEmployee = async (req , res )=>{
                 res.status(500).send("error occure")
          }
 }
-// const UpdateProfile = async (req , res )=>{
-//     try{
-      
-//        const updateUser = await UserModal.updateOne({"_id":req.params.id},
-//        {
-//            $set:{
-//                employeeName: req.body.employeeName,
-//                phone: req.body.phone,
-//                Nic: req.body.Nic,
-//                birthData: req.body.birthData,
-//                address: req.body.address,
-//                gender: req.body.gender,
 
-//            }
-//        })
-//        if(updateUser.modifiedCount == 1){
-//            res.status(http_cods.StatusCodes.OK).send(http_cods.ReasonPhrases.OK)
-//        }
-//        else{
-//            res.status(http_cods.StatusCodes.NOT_MODIFIED).send(http_cods.ReasonPhrases.NOT_MODIFIED)
-//        }
-//     }
-//     catch(err){
-//            res.status(500).send("error occure")
-//     }
-// }
 
 const DeleteEmployee = async (req, res)=>{
      const IsDelete = await UserModal.remove({"_id":req.params.id});
@@ -196,6 +179,45 @@ const uploadProfileImage =(file,nic)=>{
     const url = `http://localhost:5000/`+file_name;
     return url;
 
+}
+const sendmail = async (email,username,password)=>{
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'itpm.hrm@gmail.com',
+          pass: 'Tharu724*',
+         
+        }
+      });
+    
+      let mailOptions = {
+        from:'itpm.hrm@gmail.com',
+        to: email,
+        subject: 'HRM Login Details',
+        text: `Hi ${username} , 
+        
+               Your HRM Account is created and Use the below information to login to the system. Please change the password ones you signed in.
+               
+               Username : ${username},
+               Password : ${password} (please update after login)
+
+               Go to the Login : http://localhost:8081/auth/login"
+               
+               Thanks and Best Regards.
+
+               
+               `
+      };
+      transporter.sendMail(mailOptions, function(err, data) {
+        if (err) {
+          console.log("Error " + err);
+          return false;
+        } else {
+          console.log("Email sent successfully");
+          return true;
+        }
+      });
+    
 }
 
 module.exports = {
